@@ -46,15 +46,16 @@ export default defineComponent({
     </button>
 
     <nav
-      class="fixed w-full left-0 z-50 flex-col px-6 py-4 mt-4 font-semibold rounded-lg shadow-md md:relative top-16 md:top-0 md:flex md:flex-row md:space-x-6 md:w-auto md:rounded-none md:bg-transparent"
+      class="fixed left-0 z-50 flex-col w-full px-6 py-4 mt-4 font-semibold rounded-lg shadow-md md:relative top-16 md:top-0 md:flex md:flex-row md:space-x-6 md:w-auto md:rounded-none md:bg-transparent"
       :class="mobileMenuOpen ? 'flex bg-gray-100 dark:bg-gray-900' : 'hidden'"
     >
       <RouterLink
         v-for="(icon, title) in links"
+        :key="title"
         :to="{ name: title.toLowerCase() }"
         @click="mobileMenuOpen = false"
       >
-        <a class="flex space-x-2 items-center">
+        <a class="flex items-center space-x-2">
           <FontAwesomeIcon class="text-yellow-500" :icon />
           <span>{{ title }}</span>
         </a>

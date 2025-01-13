@@ -40,11 +40,11 @@ export default defineComponent({
     class="relative bottom-0 w-full py-12 mt-24 text-gray-500 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 xl:pb-24"
   >
     <div class="grid max-w-screen-xl grid-cols-2 md:grid-cols-4">
-      <div v-for="(link, group) in linkGroups" class="mx-auto">
+      <div v-for="(link, group) in linkGroups" :key="group" class="mx-auto">
         <h1 class="text-xl font-bold text-yellow-500">{{ group }}</h1>
         <nav class="mt-4">
           <ul class="space-y-2">
-            <li v-for="(href, title) in link">
+            <li v-for="(href, title) in link" :key="href">
               <a :href>{{ title }}</a>
             </li>
           </ul>

@@ -45,7 +45,7 @@ export default defineComponent({
         </div>
 
         <div class="grid gap-8 md:grid-cols-2 lg:gap-12">
-          <CardComponent v-for="(text, title) in features">
+          <CardComponent v-for="(text, title) in features" :key="title">
             <h2>{{ title }}</h2>
             <p>{{ text }}</p>
           </CardComponent>

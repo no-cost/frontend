@@ -41,14 +41,15 @@ export default defineComponent({
   <div>
     <HeadingSectionComponent heading="Extensions" :description="extensionsStore.infoText" />
 
-    <div v-for="(extensions, category) in extensionsStore.data">
+    <div v-for="(extensions, category) in extensionsStore.data" :key="category">
       <h2 class="mt-10 mb-6">{{ category.length > 0 ? category : 'Other' }}</h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <CardComponent
           v-for="extension in extensions"
           :icon="extension.icon_name ? extension.icon_name.split(' ') : ['fas', 'question-circle']"
           :href="extension.url"
+          :key="extension.id"
         >
           <h3>{{ extension.title }}</h3>
           <p>
