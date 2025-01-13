@@ -13,7 +13,7 @@ export default defineStore('extensions', {
       }[]
     },
     isLoaded: false,
-    infoText: "Loading..."
+    infoText: 'Loading...',
   }),
   actions: {
     async getExtensions() {
