@@ -4,9 +4,7 @@
 - [x] Dokončiť hlavnú stránku (features, atď...)
 - [x] Donation stránka
 - [x] Route pre sign up form
-- [ ] Sign up form
-
-- [ ] meta.requiresAuth guard pre routy (https://pinia.vuejs.org/core-concepts/outside-component-usage.html)
+- [x] Slideshow na hlavnej stránke
 - [x] /extensions store
 - [x] Upraviť Allowed Origins na backende, otestovať to pri extensions
 - [x] Login form
