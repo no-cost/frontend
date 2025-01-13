@@ -47,7 +47,7 @@ export default defineComponent({
   </div>
 </template>
 
-<style>
+<style scoped>
 @import 'tailwindcss';
 
 .form-field {
