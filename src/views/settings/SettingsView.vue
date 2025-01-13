@@ -11,9 +11,7 @@ export default defineComponent({
   },
   methods: {
     async logout() {
-      await fetch('https://api.freeflarum.com/authentication/logout', { credentials: 'include' })
-
-      localStorage.removeItem('access_token')
+      await this.forumStore.logout()
       this.$router.push({ name: 'login' })
     },
   },
@@ -39,7 +37,7 @@ export default defineComponent({
           <div class="grid grid-cols-1 sm:gap-4 sm:grid-cols-2">
             <b>Forum Tag:</b>
             <a
-              class="text-yellow-500 hover:text-yellow-600 dark:hover:text-yellow-400 transition-color duration-500 underline"
+              class="text-yellow-500 underline duration-500 hover:text-yellow-600 dark:hover:text-yellow-400 transition-color"
               :href="forumStore.url"
             >
               {{ forumStore.tag }}
@@ -60,7 +58,7 @@ export default defineComponent({
         </div>
 
         <div class="mt-6">
-          <a href="#" class="button w-full" @click="logout()">Logout</a>
+          <a href="#" class="w-full button" @click="logout()">Logout</a>
         </div>
       </div>
     </div>

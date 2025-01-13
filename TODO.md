@@ -10,7 +10,5 @@
 - [x] /extensions store
 - [x] Upraviť Allowed Origins na backende, otestovať to pri extensions
 - [x] Login form
-- [ ] Pinia store pre všetky dáta o aktuálnom fóre
-- [ ] Settings routy
-- [ ] Settings formuláre
+- [x] Pinia store pre všetky dáta o aktuálnom fóre
 - [x] Renderovať forum tag na donation page (zo store)

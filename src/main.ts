@@ -19,6 +19,7 @@ app.use(createPinia())
 app.use(router)
 
 const forumStore = useForumStore()
+forumStore.loadSavedToken()
 forumStore.getForumData()
 
 library.add(fas, fab, far)

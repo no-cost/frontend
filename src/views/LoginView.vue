@@ -21,22 +21,23 @@ export default defineComponent({
   methods: {
     async login(form: HTMLFormElement) {
       if (!form.reportValidity()) return
+      const formData = new FormData(form)
 
-      let request = await fetch(`https://api.freeflarum.com/authentication`, {
+      const request = await fetch(`https://api.freeflarum.com/authentication`, {
         method: 'POST',
         credentials: 'include',
-        body: new FormData(form),
+        body: formData,
       })
 
-      let response = await await request.json()
+      const response = await await request.json()
       if (response['errors'] !== undefined) {
         this.info = response['errors'][0]
         return
       }
 
-      localStorage.setItem('access_token', response['token'])
-
+      this.forumStore.saveToken(response['token'], formData.get('remember') === 'on')
       await this.forumStore.getForumData()
+
       this.$router.push({ name: 'settings' })
     },
   },
@@ -50,7 +51,7 @@ export default defineComponent({
 
 <template>
   <form
-    class="w-80 mx-auto"
+    class="mx-auto w-80"
     action="https://api.freeflarum.com/authentication"
     method="POST"
     @submit.prevent="login($el)"
@@ -81,7 +82,7 @@ export default defineComponent({
       </div>
     </div>
 
-    <p class="pl-2 mb-4 text-left text-gray-700 dark:text-gray-300 border-l-2 border-yellow-500">
+    <p class="pl-2 mb-4 text-left text-gray-700 border-l-2 border-yellow-500 dark:text-gray-300">
       {{ info }}
     </p>
     <a href="#" class="button" @click="login($el)"> Login </a>
