@@ -1,14 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import HomeView from '@/views/home/HomeView.vue'
 import CreateForumView from '@/views/home/CreateForumView.vue'
-import SignUpView from '@/views/home/SignUpView.vue'
-import ContactView from '@/views/contact/ContactView.vue'
-import ExtensionsView from '@/views/ExtensionsView.vue'
-import SettingsView from '@/views/settings/SettingsView.vue'
-import DonateView from '@/views/DonateView.vue'
+import HomeView from '@/views/home/HomeView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
-import LoginView from '@/views/LoginView.vue'
+import SignUpView from '@/views/home/SignUpView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,27 +27,27 @@ const router = createRouter({
     {
       path: '/contact',
       name: 'contact',
-      component: ContactView,
+      component: import('@/views/contact/ContactView.vue'),
     },
     {
       path: '/extensions',
       name: 'extensions',
-      component: ExtensionsView,
+      component: import('@/views/ExtensionsView.vue'),
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView,
+      component: import('@/views/LoginView.vue'),
     },
     {
       path: '/settings',
       name: 'settings',
-      component: SettingsView,
+      component: import('@/views/settings/SettingsView.vue'),
     },
     {
       path: '/donate',
       name: 'donate',
-      component: DonateView,
+      component: import('@/views/DonateView.vue'),
     },
     {
       path: '/:pathMatch(.*)*',
