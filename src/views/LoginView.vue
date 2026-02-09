@@ -58,7 +58,7 @@ export default defineComponent({
     >
       <h1 class="mb-8 text-center font-bold text-3xl">Log in</h1>
 
-      <form method="POST" @submit.prevent="login($el as HTMLFormElement)">
+      <form method="POST" @submit.prevent="login($event.target as HTMLFormElement)">
         <div class="space-y-1">
           <FormFieldComponent
             placeholder="Site tag"
