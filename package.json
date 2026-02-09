@@ -23,7 +23,8 @@
     "pinia": "^2.3.1",
     "tailwindcss": "^4.1.18",
     "vue": "^3.5.28",
-    "vue-router": "^4.6.4"
+    "vue-router": "^4.6.4",
+    "vue-turnstile": "^1.0.11"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.5",

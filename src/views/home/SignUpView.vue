@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
+import VueTurnstile from 'vue-turnstile'
 
 import FormFieldComponent from '@/components/FormFieldComponent.vue'
 
@@ -7,16 +8,28 @@ export default defineComponent({
   name: 'SignUpView',
   components: {
     FormFieldComponent,
+    VueTurnstile,
   },
   data() {
     return {
       info: null as null | string,
       success: false,
+      turnstileToken: null as null | string,
     }
+  },
+  computed: {
+    turnstileSiteKey(): string {
+      return import.meta.env.VITE_TURNSTILE_SITE_KEY
+    },
   },
   methods: {
     async createSite(form: HTMLFormElement) {
       if (!form.reportValidity()) return
+
+      if (!this.turnstileToken) {
+        this.info = 'Please complete the verification.'
+        return
+      }
 
       const formData = new FormData(form)
       try {
@@ -28,6 +41,7 @@ export default defineComponent({
             email: formData.get('email'),
             site_type: formData.get('site_type'),
             parent_domain: formData.get('parent_domain'),
+            turnstile_token: this.turnstileToken,
           }),
         })
 
@@ -79,6 +93,13 @@ export default defineComponent({
         </div>
 
         <input type="hidden" name="parent_domain" value="no-cost.site" />
+
+        <VueTurnstile
+          :site-key="turnstileSiteKey"
+          v-model="turnstileToken"
+          theme="dark"
+          class="mt-4"
+        />
 
         <p v-if="info" class="pl-3 mt-4 text-sm text-left text-red-400 border-l-2 border-red-500">
           {{ info }}
