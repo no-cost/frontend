@@ -75,7 +75,7 @@ export default defineComponent({
         </p>
       </template>
 
-      <form v-else method="POST" @submit.prevent="createSite($el)">
+      <form v-else method="POST" @submit.prevent="createSite($event.target as HTMLFormElement)">
         <FormFieldComponent title="Tag" placeholder="Your site name" required />
         <FormFieldComponent type="email" title="Email" placeholder="Your admin email" required />
 

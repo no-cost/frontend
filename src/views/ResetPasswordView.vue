@@ -104,7 +104,7 @@ export default defineComponent({
           </p>
         </template>
 
-        <form v-else method="POST" @submit.prevent="setPassword($el)">
+        <form v-else method="POST" @submit.prevent="setPassword($event.target as HTMLFormElement)">
           <div class="space-y-1">
             <FormFieldComponent
               type="password"
@@ -145,7 +145,7 @@ export default defineComponent({
           <p class="text-sm text-gray-400 text-center">{{ info }}</p>
         </template>
 
-        <form v-else method="POST" @submit.prevent="requestReset($el)">
+        <form v-else method="POST" @submit.prevent="requestReset($event.target as HTMLFormElement)">
           <FormFieldComponent
             type="email"
             title="Email"
