@@ -51,40 +51,51 @@ export default defineComponent({
 </script>
 
 <template>
-  <form
-    class="mx-auto w-80"
-    method="POST"
-    @submit.prevent="login($el)"
-  >
-    <div class="mb-4">
-      <FormFieldComponent
-        placeholder="Site tag"
-        title="Username"
-        autocomplete="username"
-        required
-      />
-      <br />
+  <div class="max-w-sm mx-auto px-6">
+    <div
+      class="p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
+    >
+      <h1 class="mb-8 text-center big text-3xl">Log in</h1>
 
-      <FormFieldComponent
-        placeholder="Your admin account password"
-        type="password"
-        title="Password"
-        autocomplete="current-password"
-        required
-      />
-      <br />
+      <form method="POST" @submit.prevent="login($el)">
+        <div class="space-y-1">
+          <FormFieldComponent
+            placeholder="Site tag"
+            title="Username"
+            autocomplete="username"
+            required
+          />
+
+          <FormFieldComponent
+            placeholder="Your admin account password"
+            type="password"
+            title="Password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <div class="flex items-center mt-4">
+          <input
+            type="checkbox"
+            name="remember"
+            id="remember"
+            class="mr-2 rounded border-gray-300 dark:border-gray-600"
+          />
+          <label for="remember" class="text-sm text-gray-500">Remember Me</label>
+        </div>
+
+        <p
+          v-if="info"
+          class="pl-3 mt-4 text-sm text-left text-red-400 border-l-2 border-red-500"
+        >
+          {{ info }}
+        </p>
+
+        <div class="mt-8">
+          <button type="submit" class="button w-full text-center">Login</button>
+        </div>
+      </form>
     </div>
-
-    <div class="flex flex-col mb-12 justify-evenly">
-      <div>
-        <input type="checkbox" name="remember" class="mr-2" />
-        <label for="remember">Remember Me</label>
-      </div>
-    </div>
-
-    <p class="pl-2 mb-4 text-left text-gray-700 border-l-2 border-cyan-500 dark:text-gray-300">
-      {{ info }}
-    </p>
-    <a href="#" class="button" @click="login($el)"> Login </a>
-  </form>
+  </div>
 </template>

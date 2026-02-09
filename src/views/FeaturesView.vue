@@ -1,13 +1,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import CardComponent from '@/components/CardComponent.vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import HeadingSectionComponent from '@/components/HeadingSectionComponent.vue'
 
 export default defineComponent({
   name: 'FeaturesView',
   components: {
-    CardComponent,
+    FontAwesomeIcon,
     HeadingSectionComponent,
   },
   data() {
@@ -51,20 +51,39 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
+  <div class="max-w-3xl mx-auto px-6">
     <HeadingSectionComponent
       heading="Features"
       description="Choose the right application for your project."
     />
 
-    <div class="grid grid-cols-1 gap-8 mt-10 md:grid-cols-3">
-      <CardComponent v-for="app in apps" :key="app.name" :icon="app.icon" :href="app.url">
-        <h2>{{ app.name }}</h2>
-        <p>{{ app.description }}</p>
-        <ul class="mt-2 ml-4 space-y-1 text-sm list-disc">
-          <li v-for="feature in app.features" :key="feature">{{ feature }}</li>
-        </ul>
-      </CardComponent>
+    <div class="flex flex-col gap-6 mt-12">
+      <a
+        v-for="app in apps"
+        :key="app.name"
+        :href="app.url"
+        target="_blank"
+        class="card flex gap-6 items-start p-6 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-950/10 hover:-translate-y-0.5 transition-all duration-200"
+      >
+        <div
+          class="shrink-0 w-14 h-14 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500"
+        >
+          <FontAwesomeIcon :icon="app.icon" size="xl" />
+        </div>
+        <div>
+          <h2 class="font-semibold">{{ app.name }}</h2>
+          <p class="mt-1 text-gray-500 dark:text-gray-400">{{ app.description }}</p>
+          <ul class="mt-3 flex flex-wrap gap-2">
+            <li
+              v-for="feature in app.features"
+              :key="feature"
+              class="text-xs px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"
+            >
+              {{ feature }}
+            </li>
+          </ul>
+        </div>
+      </a>
     </div>
   </div>
 </template>

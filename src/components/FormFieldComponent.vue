@@ -33,10 +33,13 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="space-y-2">
-    <span>{{ $props.title }}</span>
+  <div class="space-y-1.5 mt-4">
+    <label class="text-sm font-medium text-gray-300" :for="$props.title.toLowerCase()">
+      {{ $props.title }}
+    </label>
     <input
       class="form-field"
+      :id="$props.title.toLowerCase()"
       :name="$props.title.toLowerCase()"
       :value
       :placeholder
@@ -51,6 +54,9 @@ export default defineComponent({
 @import 'tailwindcss';
 
 .form-field {
-  @apply my-2 p-3 w-full text-black bg-gray-200 rounded-lg dark:bg-gray-800 dark:text-white focus:outline-none;
+  @apply w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white
+    border border-gray-200 dark:border-gray-700
+    focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50
+    placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors;
 }
 </style>

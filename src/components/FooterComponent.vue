@@ -36,11 +36,13 @@ export default defineComponent({
 
 <template>
   <footer
-    class="relative bottom-0 w-full py-12 mt-24 text-gray-500 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 xl:pb-24"
+    class="relative bottom-0 w-full pt-16 pb-12 mt-24 text-gray-500 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950"
   >
-    <div class="grid max-w-screen-xl grid-cols-2 md:grid-cols-4">
-      <div v-for="(link, group) in linkGroups" :key="group" class="mx-auto">
-        <h1 class="text-xl font-bold text-cyan-500">{{ group }}</h1>
+    <div class="grid max-w-screen-xl mx-auto px-8 grid-cols-2 gap-8 md:grid-cols-4">
+      <div v-for="(link, group) in linkGroups" :key="group">
+        <h1 class="text-sm font-semibold tracking-wider text-gray-900 dark:text-gray-100 uppercase">
+          {{ group }}
+        </h1>
         <nav class="mt-4">
           <ul class="space-y-2">
             <li v-for="(href, title) in link" :key="href">
@@ -52,19 +54,17 @@ export default defineComponent({
     </div>
 
     <div
-      class="flex flex-col items-center justify-center max-w-screen-xl px-8 mx-auto mt-16 space-y-4 md:flex-row lg:mt-20"
+      class="max-w-screen-xl mx-auto px-8 mt-12 pt-8 border-t border-gray-100 dark:border-gray-800"
     >
-      <div class="flex flex-col space-y-4 text-sm text-center">
-        <div>
-          <p>
-            Copyright &copy; 2025 ‐
-            <span>{{ aktualnyRok }}</span> no-cost.site.
-          </p>
-          <p class="italic">
-            no-cost.site is an independent hosting service and is not affiliated with Flarum,
-            MediaWiki, or WordPress.
-          </p>
-        </div>
+      <div class="text-sm text-center text-gray-400">
+        <p>
+          Copyright &copy;
+          <span>{{ aktualnyRok }}</span> no-cost.site.
+        </p>
+        <p class="mt-1 italic">
+          no-cost.site is an independent hosting service and is not affiliated with Flarum,
+          MediaWiki, or WordPress.
+        </p>
       </div>
     </div>
   </footer>
@@ -74,6 +74,6 @@ export default defineComponent({
 @import 'tailwindcss';
 
 a[href] {
-  @apply text-gray-900 dark:text-gray-100;
+  @apply text-gray-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors text-sm;
 }
 </style>

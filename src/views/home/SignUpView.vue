@@ -39,35 +39,41 @@ export default defineComponent({
 </script>
 
 <template>
-  <form method="POST" @submit.prevent="createSite($el)" class="max-w-screen-sm mx-auto px-6">
-    <h1 class="mb-6 text-center big">Create your site</h1>
+  <div class="max-w-md mx-auto px-6">
+    <div
+      class="p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
+    >
+      <h1 class="mb-8 text-center big text-3xl">Create your site</h1>
 
-    <FormFieldComponent title="Tag" placeholder="Your site name" required />
-    <FormFieldComponent type="email" title="Email" placeholder="Your admin email" required />
-    <FormFieldComponent
-      type="password"
-      title="Password"
-      placeholder="Choose a password"
-      required
-    />
+      <form method="POST" @submit.prevent="createSite($el)">
+        <FormFieldComponent title="Tag" placeholder="Your site name" required />
+        <FormFieldComponent type="email" title="Email" placeholder="Your admin email" required />
+        <FormFieldComponent
+          type="password"
+          title="Password"
+          placeholder="Choose a password"
+          required
+        />
 
-    <div class="mt-4 space-y-2">
-      <span class="text-sm font-medium">Application</span>
-      <select
-        name="site_type"
-        class="w-full p-3 my-2 text-black bg-gray-200 rounded-lg dark:bg-gray-800 dark:text-white focus:outline-none"
-        required
-      >
-        <option value="flarum">Flarum (Forum)</option>
-        <option value="mediawiki">MediaWiki (Wiki)</option>
-        <option value="wordpress">WordPress (Blog/CMS)</option>
-      </select>
+        <div class="mt-4 space-y-2">
+          <span class="text-sm font-medium">Application</span>
+          <select
+            name="site_type"
+            class="w-full p-3 my-2 rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 border border-gray-200 dark:border-gray-700"
+            required
+          >
+            <option value="flarum">Flarum (Forum)</option>
+            <option value="mediawiki">MediaWiki (Wiki)</option>
+            <option value="wordpress">WordPress (Blog/CMS)</option>
+          </select>
+        </div>
+
+        <input type="hidden" name="parent_domain" value="no-cost.site" />
+
+        <div class="mt-8">
+          <button type="submit" class="button w-full text-center">Create site</button>
+        </div>
+      </form>
     </div>
-
-    <input type="hidden" name="parent_domain" value="no-cost.site" />
-
-    <div class="mt-6">
-      <button type="submit" class="button">Create site</button>
-    </div>
-  </form>
+  </div>
 </template>

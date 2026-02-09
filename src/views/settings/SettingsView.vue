@@ -24,46 +24,44 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="p-8 bg-gray-100 dark:bg-gray-900 min-h-[60vh]">
-    <section class="mb-12 space-y-2 text-center">
-      <h1 class="text-2xl text-cyan-500">Site Overview</h1>
-      <p>Your site at a glance.</p>
-    </section>
+  <div class="max-w-lg mx-auto px-6">
+    <div class="mb-10 text-center">
+      <h1 class="big text-3xl">Site Overview</h1>
+      <p class="text-gray-400">Your site at a glance.</p>
+    </div>
 
-    <div class="flex flex-col items-center justify-center mt-6">
-      <div class="p-8 bg-gray-200 rounded-lg dark:bg-gray-800 sm:space-y-0">
-        <div class="space-y-4 sm:space-y-1">
-          <h2 class="mb-4 text-xl text-cyan-500">Basic Information</h2>
-          <div class="grid grid-cols-1 sm:gap-4 sm:grid-cols-2">
-            <b>Site Tag:</b>
-            <a
-              class="text-cyan-500 underline duration-500 hover:text-cyan-600 dark:hover:text-cyan-400 transition-color"
-              :href="'https://' + siteStore.hostname"
-            >
-              {{ siteStore.tag }}
-            </a>
-          </div>
-          <div class="grid grid-cols-1 sm:gap-4 sm:grid-cols-2">
-            <b>Application:</b>
-            <span>{{ siteStore.siteType }}</span>
-          </div>
-          <div class="grid grid-cols-1 sm:gap-4 sm:grid-cols-2">
-            <b>Created by (E-mail):</b>
-            <span>{{ siteStore.email }}</span>
-          </div>
-          <div class="grid grid-cols-1 sm:gap-4 sm:grid-cols-2">
-            <b>Donated:</b>
-            <p>
-              <span>{{ siteStore.donated.toFixed(2) }} € (</span>
-              <RouterLink :to="{ name: 'donate' }">donate?</RouterLink>
-              <span>)</span>
-            </p>
-          </div>
+    <div
+      class="p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
+    >
+      <div class="space-y-5">
+        <div class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800">
+          <span class="text-sm font-medium text-gray-500">Site Tag</span>
+          <a
+            class="text-cyan-400 hover:text-cyan-300 transition-colors font-mono text-sm"
+            :href="'https://' + siteStore.hostname"
+          >
+            {{ siteStore.tag }}
+          </a>
         </div>
+        <div class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800">
+          <span class="text-sm font-medium text-gray-500">Application</span>
+          <span class="text-sm text-gray-200">{{ siteStore.siteType }}</span>
+        </div>
+        <div class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800">
+          <span class="text-sm font-medium text-gray-500">E-mail</span>
+          <span class="text-sm text-gray-200">{{ siteStore.email }}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-sm font-medium text-gray-500">Donated</span>
+          <span class="text-sm text-gray-200">
+            {{ siteStore.donated.toFixed(2) }} € &mdash;
+            <RouterLink :to="{ name: 'donate' }">donate?</RouterLink>
+          </span>
+        </div>
+      </div>
 
-        <div class="mt-6">
-          <a href="#" class="w-full button" @click="logout()">Logout</a>
-        </div>
+      <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800">
+        <button class="button w-full text-center" @click="logout()">Logout</button>
       </div>
     </div>
   </div>

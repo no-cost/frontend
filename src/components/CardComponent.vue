@@ -27,10 +27,10 @@ export default defineComponent({
 
 <template>
   <a class="card" :href :target>
-    <div v-if="$props.icon">
-      <FontAwesomeIcon :icon="$props.icon" size="3x" />
+    <div v-if="$props.icon" class="icon-wrap">
+      <FontAwesomeIcon :icon="$props.icon" size="2x" />
     </div>
-    <div>
+    <div class="card-body">
       <slot></slot>
     </div>
   </a>
@@ -40,8 +40,17 @@ export default defineComponent({
 @import 'tailwindcss';
 
 a.card {
-  @apply flex flex-row gap-4 items-center rounded-lg p-6 transition-colors
-    bg-gradient-to-tl from-gray-100 to-gray-300 dark:from-gray-900 dark:to-gray-700
-    hover:from-gray-200 hover:to-gray-400 dark:hover:from-gray-800 dark:hover:to-gray-600;
+  @apply flex flex-row gap-5 items-start rounded-xl p-6 transition-all duration-200
+    border border-gray-200 dark:border-gray-800
+    bg-white dark:bg-gray-900
+    hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-950/10 hover:-translate-y-0.5;
+}
+
+.icon-wrap {
+  @apply text-cyan-500 shrink-0 mt-1;
+}
+
+.card-body {
+  @apply min-w-0;
 }
 </style>
