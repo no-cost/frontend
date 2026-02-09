@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import useForumStore from '@/stores/forumStore'
+import useSiteStore from '@/stores/siteStore'
 import { mapStores } from 'pinia'
 import FormFieldComponent from '@/components/FormFieldComponent.vue'
 
@@ -16,33 +16,34 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapStores(useForumStore),
+    ...mapStores(useSiteStore),
   },
   methods: {
     async login(form: HTMLFormElement) {
       if (!form.reportValidity()) return
       const formData = new FormData(form)
 
-      const request = await fetch(`https://api.freeflarum.com/authentication`, {
+      // TODO: update when backend auth endpoint is available
+      const request = await fetch(`${import.meta.env.VITE_API_URL}/v1/account/login`, {
         method: 'POST',
         credentials: 'include',
         body: formData,
       })
 
-      const response = await await request.json()
+      const response = await request.json()
       if (response['errors'] !== undefined) {
         this.info = response['errors'][0]
         return
       }
 
-      this.forumStore.saveToken(response['token'], formData.get('remember') === 'on')
-      await this.forumStore.getForumData()
+      this.siteStore.saveToken(response['token'], formData.get('remember') === 'on')
+      await this.siteStore.getSiteData()
 
       this.$router.push({ name: 'settings' })
     },
   },
   beforeMount() {
-    if (this.forumStore.isAuthenticated) {
+    if (this.siteStore.isAuthenticated) {
       this.$router.push({ name: 'settings' })
     }
   },
@@ -52,13 +53,12 @@ export default defineComponent({
 <template>
   <form
     class="mx-auto w-80"
-    action="https://api.freeflarum.com/authentication"
     method="POST"
     @submit.prevent="login($el)"
   >
     <div class="mb-4">
       <FormFieldComponent
-        placeholder="Forum ID"
+        placeholder="Site tag"
         title="Username"
         autocomplete="username"
         required
@@ -66,7 +66,7 @@ export default defineComponent({
       <br />
 
       <FormFieldComponent
-        placeholder="Your forum admin account password"
+        placeholder="Your admin account password"
         type="password"
         title="Password"
         autocomplete="current-password"
@@ -82,7 +82,7 @@ export default defineComponent({
       </div>
     </div>
 
-    <p class="pl-2 mb-4 text-left text-gray-700 border-l-2 border-yellow-500 dark:text-gray-300">
+    <p class="pl-2 mb-4 text-left text-gray-700 border-l-2 border-cyan-500 dark:text-gray-300">
       {{ info }}
     </p>
     <a href="#" class="button" @click="login($el)"> Login </a>

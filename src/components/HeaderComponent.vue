@@ -13,7 +13,7 @@ export default defineComponent({
       mobileMenuOpen: false,
       links: {
         Home: ['fas', 'home'],
-        Extensions: ['fas', 'puzzle-piece'],
+        Features: ['fas', 'star'],
         Contact: ['fas', 'envelope'],
         Settings: ['fas', 'user'],
       },
@@ -27,8 +27,8 @@ export default defineComponent({
     class="flex flex-row flex-wrap justify-between px-6 py-6 md:items-center md:space-x-4 bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900"
   >
     <a href="/">
-      <span class="sr-only">FreeFlarum.com</span>
-      <img src="/logo.svg" width="140" height="35" class="w-auto h-8" alt="FreeFlarum Logo" />
+      <span class="sr-only">no-cost.site</span>
+      <img src="/logo.svg" width="140" height="35" class="w-auto h-8" alt="no-cost.site Logo" />
     </a>
 
     <button
@@ -56,7 +56,7 @@ export default defineComponent({
         @click="mobileMenuOpen = false"
       >
         <a class="flex items-center space-x-2">
-          <FontAwesomeIcon class="text-yellow-500" :icon />
+          <FontAwesomeIcon class="text-cyan-500" :icon />
           <span>{{ title }}</span>
         </a>
       </RouterLink>
@@ -68,10 +68,10 @@ export default defineComponent({
 @import 'tailwindcss';
 
 a {
-  @apply text-gray-800 dark:text-gray-200 hover:text-yellow-400;
+  @apply text-gray-800 dark:text-gray-200 hover:text-cyan-400;
 }
 
 .router-link-active a {
-  @apply text-yellow-500 hover:text-yellow-600;
+  @apply text-cyan-500 hover:text-cyan-600;
 }
 </style>

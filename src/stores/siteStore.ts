@@ -1,11 +1,14 @@
 import { defineStore } from 'pinia'
 
-export default defineStore('forum', {
+const API_URL = import.meta.env.VITE_API_URL
+
+export default defineStore('site', {
   state: () => ({
     token: '',
     tag: '',
     email: '',
-    url: '',
+    siteType: '',
+    hostname: '',
     donated: 0,
   }),
   actions: {
@@ -15,20 +18,22 @@ export default defineStore('forum', {
     },
     loadSavedToken() {
       const token = localStorage.getItem('access_token')
-      if (token !== null && token.length == 40) {
+      if (token !== null && token.length > 0) {
         this.token = token
       }
       return this.token
     },
     async logout() {
-      await fetch('https://api.freeflarum.com/authentication/logout', { credentials: 'include' })
+      // TODO: call backend logout endpoint when available
       localStorage.removeItem('access_token')
       this.token = ''
     },
-    async getForumData() {
+    async getSiteData() {
       if (!this.isAuthenticated) return
+
+      // TODO: update when backend /v1/account/ is complete
       const response = await (
-        await fetch(`https://api.freeflarum.com/settings/`, {
+        await fetch(`${API_URL}/v1/account/`, {
           credentials: 'include',
           headers: {
             Authorization: `Bearer ${this.token}`,
@@ -43,12 +48,13 @@ export default defineStore('forum', {
       }
 
       this.tag = response['data']['tag']
-      this.email = response['data']['email']
-      this.url = response['data']['url']
-      this.donated = response['data']['donated']
+      this.email = response['data']['admin_email']
+      this.siteType = response['data']['site_type']
+      this.hostname = response['data']['hostname']
+      this.donated = response['data']['donated'] ?? 0
     },
   },
   getters: {
-    isAuthenticated: (forum): boolean => forum.token.length > 0,
+    isAuthenticated: (state): boolean => state.token.length > 0,
   },
 })

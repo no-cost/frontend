@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '@/views/home/HomeView.vue'
-import CreateForumView from '@/views/home/CreateForumView.vue'
 import SignUpView from '@/views/home/SignUpView.vue'
 import ContactView from '@/views/contact/ContactView.vue'
-import ExtensionsView from '@/views/ExtensionsView.vue'
+import FeaturesView from '@/views/FeaturesView.vue'
 import SettingsView from '@/views/settings/SettingsView.vue'
 import DonateView from '@/views/DonateView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
@@ -15,19 +14,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'home',
       component: HomeView,
-      children: [
-        {
-          path: '/',
-          name: 'home',
-          component: CreateForumView,
-        },
-        {
-          path: '/signup',
-          name: 'signup',
-          component: SignUpView,
-        },
-      ],
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: SignUpView,
     },
     {
       path: '/contact',
@@ -35,9 +28,9 @@ const router = createRouter({
       component: ContactView,
     },
     {
-      path: '/extensions',
-      name: 'extensions',
-      component: ExtensionsView,
+      path: '/features',
+      name: 'features',
+      component: FeaturesView,
     },
     {
       path: '/login',

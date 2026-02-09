@@ -6,23 +6,22 @@ export default defineComponent({
   data() {
     return {
       linkGroups: {
-        FreeFlarum: {
-          'Support Forum': 'https://support.freeflarum.com',
-          Github: 'https://github.com/FreeFlarum/freeflarum.com',
+        'no-cost.site': {
+          GitHub: 'https://github.com/nocost-site',
           Donate: this.$router.getRoutes().find((route) => route.name == 'donate')?.path,
         },
-        Flarum: {
-          'Flarum.org': 'https://flarum.org',
-          Discuss: 'https://discuss.flarum.org',
+        Resources: {
+          Flarum: 'https://flarum.org',
+          MediaWiki: 'https://www.mediawiki.org',
+          WordPress: 'https://wordpress.org',
         },
         About: {
-          'About FreeFlarum': 'https://docs.freeflarum.com/en/about',
-          Status: 'https://status.freeflarum.com',
-          FaQ: 'https://docs.freeflarum.com/en/faq',
+          Contact: '/contact',
+          Features: '/features',
         },
         Legal: {
-          'Privacy Policy': 'https://freeflarum.com/privacy',
-          'Terms of Service': 'https://freeflarum.com/terms',
+          'Privacy Policy': '/privacy',
+          'Terms of Service': '/terms',
         },
       },
     }
@@ -41,7 +40,7 @@ export default defineComponent({
   >
     <div class="grid max-w-screen-xl grid-cols-2 md:grid-cols-4">
       <div v-for="(link, group) in linkGroups" :key="group" class="mx-auto">
-        <h1 class="text-xl font-bold text-yellow-500">{{ group }}</h1>
+        <h1 class="text-xl font-bold text-cyan-500">{{ group }}</h1>
         <nav class="mt-4">
           <ul class="space-y-2">
             <li v-for="(href, title) in link" :key="href">
@@ -58,12 +57,12 @@ export default defineComponent({
       <div class="flex flex-col space-y-4 text-sm text-center">
         <div>
           <p>
-            Copyright &copy; 2017 ‐
-            <span>{{ aktualnyRok }}</span> FreeFlarum.
+            Copyright &copy; 2025 ‐
+            <span>{{ aktualnyRok }}</span> no-cost.site.
           </p>
           <p class="italic">
-            FreeFlarum is a community provided service and it is not affiliated with the Flarum
-            Foundation.
+            no-cost.site is an independent hosting service and is not affiliated with Flarum,
+            MediaWiki, or WordPress.
           </p>
         </div>
       </div>
