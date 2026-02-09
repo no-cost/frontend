@@ -54,7 +54,7 @@ export default defineComponent({
 @import 'tailwindcss';
 
 .form-field {
-  @apply w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white
+  @apply w-full p-3 mt-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white
     border border-gray-200 dark:border-gray-700
     focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50
     placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors;

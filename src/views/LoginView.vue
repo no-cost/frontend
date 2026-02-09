@@ -55,7 +55,7 @@ export default defineComponent({
     <div
       class="p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
-      <h1 class="mb-8 text-center big text-3xl">Log in</h1>
+      <h1 class="mb-8 text-center font-bold text-3xl">Log in</h1>
 
       <form method="POST" @submit.prevent="login($el)">
         <div class="space-y-1">
@@ -93,7 +93,7 @@ export default defineComponent({
         </p>
 
         <div class="mt-8">
-          <button type="submit" class="button w-full text-center">Login</button>
+          <button type="submit" class="button w-full text-center">Log in</button>
         </div>
       </form>
     </div>

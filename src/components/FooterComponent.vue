@@ -40,9 +40,9 @@ export default defineComponent({
   >
     <div class="grid max-w-screen-xl mx-auto px-8 grid-cols-2 gap-8 md:grid-cols-4">
       <div v-for="(link, group) in linkGroups" :key="group">
-        <h1 class="text-sm font-semibold tracking-wider text-gray-900 dark:text-gray-100 uppercase">
+        <h4 class="text-sm text-cyan-400 font-semibold tracking-wide">
           {{ group }}
-        </h1>
+        </h4>
         <nav class="mt-4">
           <ul class="space-y-2">
             <li v-for="(href, title) in link" :key="href">

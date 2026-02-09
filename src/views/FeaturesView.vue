@@ -18,10 +18,10 @@ export default defineComponent({
           icon: ['fas', 'comments'],
           description: 'A modern, fast forum platform. Perfect for building online communities.',
           features: [
-            'Real-time discussions',
-            'Extensions ecosystem',
+            'Vast extension ecosystem',
             'Mobile-friendly',
             'SEO optimized',
+            'Permissions & groups system',
           ],
           url: 'https://flarum.org',
         },
@@ -73,11 +73,13 @@ export default defineComponent({
         <div>
           <h2 class="font-semibold">{{ app.name }}</h2>
           <p class="mt-1 text-gray-500 dark:text-gray-400">{{ app.description }}</p>
-          <ul class="mt-3 flex flex-wrap gap-2">
+
+          <h6 class="mt-3 font-semibold text-gray-600 dark:text-gray-300">Features:</h6>
+          <ul class="mt-3 text-gray-500 dark:text-gray-400">
             <li
               v-for="feature in app.features"
               :key="feature"
-              class="text-xs px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"
+              class="text-sm px-2.5 py-1 list-disc list-inside"
             >
               {{ feature }}
             </li>

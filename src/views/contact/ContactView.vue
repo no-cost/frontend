@@ -2,26 +2,26 @@
 import { defineComponent } from 'vue'
 
 import CardComponent from '@/components/CardComponent.vue'
+import HeadingSectionComponent from '@/components/HeadingSectionComponent.vue'
 
 export default defineComponent({
   name: 'ContactView',
   components: {
     CardComponent,
+    HeadingSectionComponent,
   },
 })
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto px-6">
-    <div class="mb-10 text-center">
-      <h1 class="big text-3xl">Support</h1>
-      <p class="text-lg text-gray-400">
-        Experiencing issues? Reach out through one of the channels below.
-      </p>
-    </div>
+  <div class="max-w-3xl mx-auto px-6">
+    <HeadingSectionComponent
+      heading="Support"
+      description="Experiencing issues? Reach out through one of the channels below."
+    />
 
     <div
-      class="p-5 mb-10 text-sm rounded-xl border border-cyan-500/30 bg-cyan-950/20 text-gray-300"
+      class="p-5 my-10 text-sm rounded-xl border border-cyan-500/30 bg-cyan-950/20 text-gray-300"
     >
       <b class="text-cyan-400">Note:</b> no-cost.site is an independent hosting service. We can
       help with platform-related issues, but we cannot fix bugs in third-party software. In such
