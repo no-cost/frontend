@@ -8,30 +8,40 @@ export default defineComponent({
   components: {
     FormFieldComponent,
   },
+  data() {
+    return {
+      info: null as null | string,
+      success: false,
+    }
+  },
   methods: {
     async createSite(form: HTMLFormElement) {
       if (!form.reportValidity()) return
 
-      let formData = new FormData(form)
-      let data = await fetch(`${import.meta.env.VITE_API_URL}/v1/signup/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          tag: formData.get('tag'),
-          email: formData.get('email'),
-          password: formData.get('password'),
-          site_type: formData.get('site_type'),
-          parent_domain: formData.get('parent_domain'),
-        }),
-      })
+      const formData = new FormData(form)
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/v1/signup/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tag: formData.get('tag'),
+            email: formData.get('email'),
+            site_type: formData.get('site_type'),
+            parent_domain: formData.get('parent_domain'),
+          }),
+        })
 
-      let json = await data.json()
-      if (data.ok) {
-        alert(`Site created! It will be available at ${json['hostname']} shortly.`)
-      } else {
-        alert(`Error: ${json['detail']}`)
+        const data = await response.json()
+
+        if (!response.ok) {
+          this.info = data.detail ?? 'Something went wrong.'
+          return
+        }
+
+        this.success = true
+        this.info = null
+      } catch {
+        this.info = 'Network error. Please try again.'
       }
     },
   },
@@ -45,15 +55,15 @@ export default defineComponent({
     >
       <h1 class="mb-8 text-center big text-3xl">Create your site</h1>
 
-      <form method="POST" @submit.prevent="createSite($el)">
+      <template v-if="success">
+        <p class="text-sm text-gray-400 text-center">
+          Your site is being installed. Check your email to set your password and get started.
+        </p>
+      </template>
+
+      <form v-else method="POST" @submit.prevent="createSite($el)">
         <FormFieldComponent title="Tag" placeholder="Your site name" required />
         <FormFieldComponent type="email" title="Email" placeholder="Your admin email" required />
-        <FormFieldComponent
-          type="password"
-          title="Password"
-          placeholder="Choose a password"
-          required
-        />
 
         <div class="mt-4 space-y-2">
           <span class="text-sm font-medium">Application</span>
@@ -69,6 +79,10 @@ export default defineComponent({
         </div>
 
         <input type="hidden" name="parent_domain" value="no-cost.site" />
+
+        <p v-if="info" class="pl-3 mt-4 text-sm text-left text-red-400 border-l-2 border-red-500">
+          {{ info }}
+        </p>
 
         <div class="mt-8">
           <button type="submit" class="button w-full text-center">Create site</button>

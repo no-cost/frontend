@@ -24,34 +24,36 @@ export default defineStore('site', {
       return this.token
     },
     async logout() {
-      // TODO: call backend logout endpoint when available
       localStorage.removeItem('access_token')
       this.token = ''
+      this.tag = ''
+      this.email = ''
+      this.siteType = ''
+      this.hostname = ''
+      this.donated = 0
     },
     async getSiteData() {
       if (!this.isAuthenticated) return
 
-      // TODO: update when backend /v1/account/ is complete
-      const response = await (
-        await fetch(`${API_URL}/v1/account/`, {
-          credentials: 'include',
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
+      try {
+        const response = await fetch(`${API_URL}/v1/account/`, {
+          headers: { Authorization: `Bearer ${this.token}` },
         })
-      ).json()
 
-      if (response['errors']) {
-        localStorage.removeItem('access_token')
-        this.token = ''
-        return
+        if (!response.ok) {
+          await this.logout()
+          return
+        }
+
+        const data = await response.json()
+        this.tag = data.tag
+        this.email = data.admin_email
+        this.siteType = data.site_type
+        this.hostname = data.hostname
+        this.donated = data.donated_amount ?? 0
+      } catch {
+        await this.logout()
       }
-
-      this.tag = response['data']['tag']
-      this.email = response['data']['admin_email']
-      this.siteType = response['data']['site_type']
-      this.hostname = response['data']['hostname']
-      this.donated = response['data']['donated'] ?? 0
     },
   },
   getters: {

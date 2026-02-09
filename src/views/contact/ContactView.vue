@@ -23,9 +23,9 @@ export default defineComponent({
     <div
       class="p-5 my-10 text-sm rounded-xl border border-cyan-500/30 bg-cyan-950/20 text-gray-300"
     >
-      <b class="text-cyan-400">Note:</b> no-cost.site is an independent hosting service. We can
-      help with platform-related issues, but we cannot fix bugs in third-party software. In such
-      cases, we can provide logs and stack traces for you to share with the software's maintainer.
+      <b class="text-cyan-400">Note:</b> no-cost.site is an independent hosting service. We can help
+      with platform-related issues, but we cannot fix bugs in third-party software. In such cases,
+      we can provide logs and stack traces for you to share with the software's maintainer.
     </div>
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">

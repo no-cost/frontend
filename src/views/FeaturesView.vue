@@ -29,12 +29,7 @@ export default defineComponent({
           name: 'MediaWiki',
           icon: ['fas', 'book'],
           description: 'The wiki software that powers Wikipedia. Ideal for knowledge bases.',
-          features: [
-            'Rich text editing',
-            'Version history',
-            'Templates',
-            'Multi-language support',
-          ],
+          features: ['Rich text editing', 'Version history', 'Templates', 'Multi-language support'],
           url: 'https://www.mediawiki.org',
         },
         {

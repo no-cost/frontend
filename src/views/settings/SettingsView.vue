@@ -15,11 +15,6 @@ export default defineComponent({
       this.$router.push({ name: 'login' })
     },
   },
-  beforeMount() {
-    if (!this.siteStore.isAuthenticated) {
-      this.$router.push({ name: 'login' })
-    }
-  },
 })
 </script>
 
@@ -34,7 +29,9 @@ export default defineComponent({
       class="p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
       <div class="space-y-5">
-        <div class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800">
+        <div
+          class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800"
+        >
           <span class="text-sm font-medium text-gray-500">Site Tag</span>
           <a
             class="text-cyan-400 hover:text-cyan-300 transition-colors font-mono text-sm"
@@ -43,11 +40,15 @@ export default defineComponent({
             {{ siteStore.tag }}
           </a>
         </div>
-        <div class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800">
+        <div
+          class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800"
+        >
           <span class="text-sm font-medium text-gray-500">Application</span>
           <span class="text-sm text-gray-200">{{ siteStore.siteType }}</span>
         </div>
-        <div class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800">
+        <div
+          class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800"
+        >
           <span class="text-sm font-medium text-gray-500">E-mail</span>
           <span class="text-sm text-gray-200">{{ siteStore.email }}</span>
         </div>

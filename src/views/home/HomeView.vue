@@ -52,7 +52,9 @@ export default defineComponent({
     <section
       class="relative py-20 md:py-32 text-center overflow-hidden -mx-4 -mt-6 px-6 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950"
     >
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(6,182,212,0.12),_transparent_60%)]"></div>
+      <div
+        class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(6,182,212,0.12),_transparent_60%)]"
+      ></div>
       <div class="relative max-w-3xl mx-auto">
         <h1 class="big">Host your site for free</h1>
         <p class="my-6 text-lg md:text-xl text-gray-400 max-w-xl mx-auto">

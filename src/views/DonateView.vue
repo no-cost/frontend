@@ -17,9 +17,7 @@ export default defineComponent({
     <!-- header -->
     <div class="mb-16 text-center">
       <h1 class="big">Support no-cost.site</h1>
-      <p class="text-lg text-gray-400">
-        Help us keep free hosting alive. Every donation matters.
-      </p>
+      <p class="text-lg text-gray-400">Help us keep free hosting alive. Every donation matters.</p>
     </div>
 
     <!-- perks -->
@@ -60,25 +58,18 @@ export default defineComponent({
       <div class="max-w-5xl mx-auto">
         <div class="mb-10 text-center">
           <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Ready to donate?</h2>
-          <p class="mt-2 text-sm text-gray-500">
-            All money goes towards supporting no-cost.site
-          </p>
+          <p class="mt-2 text-sm text-gray-500">All money goes towards supporting no-cost.site</p>
         </div>
 
         <div class="grid items-start grid-cols-1 gap-8 lg:grid-cols-2">
-          <div
-            class="p-6 space-y-4 text-sm rounded-xl border border-cyan-500/30 bg-cyan-950/20"
-          >
+          <div class="p-6 space-y-4 text-sm rounded-xl border border-cyan-500/30 bg-cyan-950/20">
             <p class="font-semibold text-cyan-400">Important</p>
             <p class="text-gray-300">
               When donating, please input nothing else except your site tag in the donation message.
               Our system will automatically mark you as donor by scanning the donation message.
             </p>
 
-            <div
-              class="p-4 rounded-lg bg-gray-800/50"
-              v-if="siteStore.isAuthenticated"
-            >
+            <div class="p-4 rounded-lg bg-gray-800/50" v-if="siteStore.isAuthenticated">
               <p class="text-gray-400">Your site tag is:</p>
               <pre class="mt-1 text-cyan-400 font-mono">{{ siteStore.tag }}</pre>
               <p class="mt-2 text-xs text-gray-500">

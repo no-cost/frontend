@@ -23,29 +23,30 @@ export default defineComponent({
       if (!form.reportValidity()) return
       const formData = new FormData(form)
 
-      // TODO: update when backend auth endpoint is available
-      const request = await fetch(`${import.meta.env.VITE_API_URL}/v1/account/login`, {
-        method: 'POST',
-        credentials: 'include',
-        body: formData,
-      })
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/v1/account/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: formData.get('username'),
+            password: formData.get('password'),
+          }),
+        })
 
-      const response = await request.json()
-      if (response['errors'] !== undefined) {
-        this.info = response['errors'][0]
-        return
+        const data = await response.json()
+
+        if (!response.ok) {
+          this.info = data.detail ?? 'Login failed'
+          return
+        }
+
+        this.siteStore.saveToken(data.token, formData.get('remember') === 'on')
+        await this.siteStore.getSiteData()
+        this.$router.push({ name: 'settings' })
+      } catch {
+        this.info = 'Network error. Please try again.'
       }
-
-      this.siteStore.saveToken(response['token'], formData.get('remember') === 'on')
-      await this.siteStore.getSiteData()
-
-      this.$router.push({ name: 'settings' })
     },
-  },
-  beforeMount() {
-    if (this.siteStore.isAuthenticated) {
-      this.$router.push({ name: 'settings' })
-    }
   },
 })
 </script>
@@ -85,16 +86,17 @@ export default defineComponent({
           <label for="remember" class="text-sm text-gray-500">Remember Me</label>
         </div>
 
-        <p
-          v-if="info"
-          class="pl-3 mt-4 text-sm text-left text-red-400 border-l-2 border-red-500"
-        >
+        <p v-if="info" class="pl-3 mt-4 text-sm text-left text-red-400 border-l-2 border-red-500">
           {{ info }}
         </p>
 
         <div class="mt-8">
           <button type="submit" class="button w-full text-center">Log in</button>
         </div>
+
+        <p class="mt-4 text-sm text-center text-gray-500">
+          <RouterLink :to="{ name: 'reset-password' }">Forgot password?</RouterLink>
+        </p>
       </form>
     </div>
   </div>
