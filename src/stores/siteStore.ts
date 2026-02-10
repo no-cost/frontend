@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import router from '@/router'
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -41,7 +42,10 @@ export default defineStore('site', {
         })
 
         if (!response.ok) {
-          await this.logout()
+          if (response.status === 401 || response.status === 404) {
+            await this.logout()
+            router.push({ name: 'login' })
+          }
           return
         }
 
@@ -52,7 +56,7 @@ export default defineStore('site', {
         this.hostname = data.hostname
         this.donated = data.donated_amount ?? 0
       } catch {
-        await this.logout()
+        // network error; don't logout, server may just be unreachable
       }
     },
   },

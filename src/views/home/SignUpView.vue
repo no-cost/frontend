@@ -74,7 +74,9 @@ export default defineComponent({
     <div
       class="p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
-      <h1 class="text-center font-bold mb-6">Creating your site...</h1>
+      <h1 class="text-center font-bold mb-6">
+        {{ success ? 'Creating your site...' : 'Create site' }}
+      </h1>
 
       <template v-if="success">
         <p class="text-sm text-gray-400 text-center">
