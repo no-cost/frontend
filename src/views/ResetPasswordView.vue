@@ -45,15 +45,17 @@ export default defineComponent({
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            email: formData.get('email'),
+            site: formData.get('site'),
             turnstile_token: this.turnstileToken,
           }),
         })
 
         this.success = true
-        this.info = 'If an account with that email exists, a reset link has been sent.'
+        this.info =
+          "If an account with that info exists, a reset link has been sent to that account's admin e-mail."
       } catch {
-        this.info = 'Network error. Please, try again later. If the problem persists, contact support.'
+        this.info =
+          'Network error. Please, try again later. If the problem persists, contact support.'
         this.resetTurnstile()
       }
     },
@@ -152,10 +154,10 @@ export default defineComponent({
 
         <form v-else method="POST" @submit.prevent="requestReset($event.target as HTMLFormElement)">
           <FormFieldComponent
-            type="email"
-            title="Email"
-            placeholder="Your account email"
-            autocomplete="email"
+            type="text"
+            title="Site"
+            placeholder="Tag or hostname"
+            autocomplete="username"
             required
           />
 

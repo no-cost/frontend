@@ -61,7 +61,7 @@ export default defineComponent({
       <form method="POST" @submit.prevent="login($event.target as HTMLFormElement)">
         <div class="space-y-1">
           <FormFieldComponent
-            placeholder="Site tag"
+            placeholder="Tag or hostname"
             title="Username"
             autocomplete="username"
             required
