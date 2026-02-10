@@ -27,6 +27,10 @@ export default defineComponent({
     },
   },
   methods: {
+    resetTurnstile() {
+      this.turnstileToken = ''
+      ;(this.$refs.turnstile as any).reset()
+    },
     async requestReset(form: HTMLFormElement) {
       if (!form.reportValidity()) return
 
@@ -49,7 +53,8 @@ export default defineComponent({
         this.success = true
         this.info = 'If an account with that email exists, a reset link has been sent.'
       } catch {
-        this.info = 'Network error. Please try again.'
+        this.info = 'Network error. Please, try again later. If the problem persists, contact support.'
+        this.resetTurnstile()
       }
     },
     async setPassword(form: HTMLFormElement) {
@@ -155,6 +160,7 @@ export default defineComponent({
           />
 
           <VueTurnstile
+            ref="turnstile"
             :site-key="turnstileSiteKey"
             v-model="turnstileToken"
             theme="dark"

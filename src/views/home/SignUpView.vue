@@ -23,6 +23,10 @@ export default defineComponent({
     },
   },
   methods: {
+    resetTurnstile() {
+      this.turnstileToken = null
+      ;(this.$refs.turnstile as any).reset()
+    },
     async createSite(form: HTMLFormElement) {
       if (!form.reportValidity()) return
 
@@ -49,13 +53,16 @@ export default defineComponent({
 
         if (!response.ok) {
           this.info = data.detail ?? 'Something went wrong.'
+          this.resetTurnstile()
           return
         }
 
         this.success = true
         this.info = null
       } catch {
-        this.info = 'Network error. Please try again.'
+        this.info =
+          'Network error. Please, try again later. If the problem persists, contact support.'
+        this.resetTurnstile()
       }
     },
   },
@@ -95,6 +102,7 @@ export default defineComponent({
         <input type="hidden" name="parent_domain" value="no-cost.site" />
 
         <VueTurnstile
+          ref="turnstile"
           :site-key="turnstileSiteKey"
           v-model="turnstileToken"
           theme="dark"
