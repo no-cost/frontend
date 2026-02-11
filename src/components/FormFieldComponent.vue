@@ -28,6 +28,14 @@ export default defineComponent({
       type: Boolean,
       required: false,
     },
+    pattern: {
+      type: String,
+      required: false,
+    },
+    title_attr: {
+      type: String,
+      required: false,
+    },
   },
 })
 </script>
@@ -46,6 +54,8 @@ export default defineComponent({
       :type
       :autocomplete
       :required
+      :pattern
+      :title="$props.title_attr"
     />
   </div>
 </template>

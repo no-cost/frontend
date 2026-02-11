@@ -85,7 +85,7 @@ export default defineComponent({
       </template>
 
       <form v-else method="POST" @submit.prevent="createSite($event.target as HTMLFormElement)">
-        <FormFieldComponent title="Tag" placeholder="Your site name" required />
+        <FormFieldComponent title="Tag" placeholder="Your site name" pattern="[a-zA-Z0-9_]+" title_attr="Only letters, digits, and/or underscores" required />
         <FormFieldComponent type="email" title="Email" placeholder="Your admin email" required />
 
         <div class="mt-4 space-y-2">
