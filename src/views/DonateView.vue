@@ -98,13 +98,12 @@ export default defineComponent({
             </p>
           </div>
 
-          <!-- TODO: update Ko-fi URL to no-cost.site's Ko-fi page -->
           <iframe
             id="kofiframe"
-            src="https://ko-fi.com/freeflarum/?hidefeed=true&widget=true&embed=true&preview=true"
-            class="w-full rounded-xl bg-white border-none"
-            height="650"
-            title="no-cost.site"
+            src="https://ko-fi.com/nocost/?hidefeed=true&widget=true&embed=true&preview=true"
+            style="border: none; width: 100%; padding: 4px; background: #f9f9f9"
+            height="712"
+            title="nocost"
           ></iframe>
         </div>
       </div>
