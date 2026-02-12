@@ -24,13 +24,13 @@ export default defineComponent({
       const formData = new FormData(form)
 
       try {
+        const body = new URLSearchParams()
+        body.set('username', formData.get('username') as string)
+        body.set('password', formData.get('password') as string)
+
         const response = await fetch(`${import.meta.env.VITE_API_URL}/v1/account/login`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            username: formData.get('username'),
-            password: formData.get('password'),
-          }),
+          body,
         })
 
         const data = await response.json()
@@ -40,7 +40,7 @@ export default defineComponent({
           return
         }
 
-        this.siteStore.saveToken(data.token, formData.get('remember') === 'on')
+        this.siteStore.saveToken(data.access_token, formData.get('remember') === 'on')
         await this.siteStore.getSiteData()
         this.$router.push({ name: 'settings' })
       } catch {
