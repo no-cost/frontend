@@ -40,7 +40,7 @@ export default defineComponent({
       currentSkin: 'vector-2022',
       allowedLanguages: [] as string[],
       currentLanguage: 'en',
-      hidePoweredBy: false,
+      hidePoweredByMw: false,
       currentLogo: null as string | null,
       currentFavicon: null as string | null,
       uploading: null as 'logo' | 'favicon' | null,
@@ -185,7 +185,7 @@ export default defineComponent({
           const settings = await settingsRes.json()
           this.currentSkin = settings.skin ?? 'vector-2022'
           this.currentLanguage = settings.language ?? 'en'
-          this.hidePoweredBy = settings.hide_powered_by ?? false
+          this.hidePoweredByMw = settings.hide_powered_by_mw ?? false
           this.currentLogo = settings.logo ?? null
           this.currentFavicon = settings.favicon ?? null
         }
@@ -256,7 +256,7 @@ export default defineComponent({
       }
     },
 
-    async setHidePoweredBy() {
+    async setHidePoweredByMw() {
       this.poweredByFeedback = null
       this.poweredByBusy = true
 
@@ -264,7 +264,7 @@ export default defineComponent({
         const response = await fetch(`${API_URL}/v1/settings/mediawiki/hide-powered-by`, {
           method: 'PATCH',
           headers: { ...this.authHeaders(), 'Content-Type': 'application/json' },
-          body: JSON.stringify({ hide_powered_by: this.hidePoweredBy }),
+          body: JSON.stringify({ hide_powered_by_mw: this.hidePoweredByMw }),
         })
 
         if (!response.ok) {
@@ -274,7 +274,7 @@ export default defineComponent({
 
         this.poweredByFeedback = {
           type: 'success',
-          text: this.hidePoweredBy
+          text: this.hidePoweredByMw
             ? '"Powered by MediaWiki" footer hidden.'
             : '"Powered by MediaWiki" footer restored.',
         }
@@ -544,10 +544,10 @@ export default defineComponent({
       <div class="mb-6">
         <label class="flex items-center gap-3 cursor-pointer">
           <input
-            v-model="hidePoweredBy"
+            v-model="hidePoweredByMw"
             type="checkbox"
             class="w-4 h-4 rounded border-gray-600 bg-gray-800 text-cyan-500 focus:ring-cyan-500/50 focus:ring-2 cursor-pointer"
-            @change="setHidePoweredBy()"
+            @change="setHidePoweredByMw()"
           />
           <span class="text-sm font-medium text-gray-300">Hide "Powered by MediaWiki" footer</span>
         </label>
