@@ -37,9 +37,9 @@ export default defineComponent({
 
       // mediawiki
       allowedSkins: [] as string[],
-      currentSkin: '',
+      currentSkin: 'vector-2022',
       allowedLanguages: [] as string[],
-      currentLanguage: '',
+      currentLanguage: 'en',
       hidePoweredBy: false,
       currentLogo: null as string | null,
       currentFavicon: null as string | null,
@@ -183,8 +183,8 @@ export default defineComponent({
 
         if (settingsRes.ok) {
           const settings = await settingsRes.json()
-          this.currentSkin = settings.skin ?? ''
-          this.currentLanguage = settings.language ?? ''
+          this.currentSkin = settings.skin ?? 'vector-2022'
+          this.currentLanguage = settings.language ?? 'en'
           this.hidePoweredBy = settings.hide_powered_by ?? false
           this.currentLogo = settings.logo ?? null
           this.currentFavicon = settings.favicon ?? null
