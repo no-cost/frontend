@@ -42,7 +42,7 @@ export default defineComponent({
       >
         <span class="text-sm font-medium text-gray-500">Hostname</span>
         <span class="text-sm text-gray-200"
-          ><a href="https://{{ siteStore.hostname }}" target="_blank">{{
+          ><a :href="`https://${siteStore.hostname}`" target="_blank">{{
             siteStore.hostname
           }}</a></span
         >
