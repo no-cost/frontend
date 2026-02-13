@@ -14,19 +14,20 @@ export default defineComponent({
   components: { AsyncButton },
   data() {
     return {
-      // per-section feedback
+      parentDomainFeedback: null as Feedback,
       domainFeedback: null as Feedback,
       skinFeedback: null as Feedback,
       brandingFeedback: null as Feedback,
       fixupFeedback: null as Feedback,
 
-      // per-action busy states
+      parentDomainBusy: false,
       domainBusy: false,
       skinBusy: false,
       fixupBusy: false,
 
-      // domain
+      // domain linking
       allowedDomains: [] as string[],
+      selectedParentDomain: '',
       customDomain: '',
       unlinkParentDomain: '',
 
@@ -43,6 +44,12 @@ export default defineComponent({
     isCustomDomainLinked(): boolean {
       return !this.allowedDomains.some(
         (d) => this.siteStore.hostname === `${this.siteStore.tag}.${d}`,
+      )
+    },
+    isParentDomainChanged(): boolean {
+      return (
+        !this.isCustomDomainLinked &&
+        this.siteStore.hostname !== `${this.siteStore.tag}.${this.selectedParentDomain}`
       )
     },
   },
@@ -66,6 +73,11 @@ export default defineComponent({
         this.allowedDomains = await response.json()
         if (this.allowedDomains.length > 0) {
           this.unlinkParentDomain = this.allowedDomains[0]!
+          // pre-select the current parent domain
+          const currentParent = this.allowedDomains.find(
+            (d) => this.siteStore.hostname === `${this.siteStore.tag}.${d}`,
+          )
+          this.selectedParentDomain = currentParent ?? this.allowedDomains[0]!
         }
       } catch {}
     },
@@ -121,6 +133,32 @@ export default defineComponent({
         this.domainFeedback = { type: 'error', text: 'Network error. Please try again.' }
       } finally {
         this.domainBusy = false
+      }
+    },
+
+    async changeParentDomain() {
+      this.parentDomainFeedback = null
+      this.parentDomainBusy = true
+
+      try {
+        const response = await fetch(`${API_URL}/v1/settings/parent-domain`, {
+          method: 'PATCH',
+          headers: { ...this.authHeaders(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ parent_domain: this.selectedParentDomain }),
+        })
+
+        if (!response.ok) {
+          this.parentDomainFeedback = { type: 'error', text: await extractError(response) }
+          return
+        }
+
+        const data = await response.json()
+        this.parentDomainFeedback = { type: 'success', text: data.message }
+        await this.siteStore.getSiteData()
+      } catch {
+        this.parentDomainFeedback = { type: 'error', text: 'Network error. Please try again.' }
+      } finally {
+        this.parentDomainBusy = false
       }
     },
 
@@ -245,6 +283,46 @@ export default defineComponent({
 
 <template>
   <div class="space-y-6">
+    <!-- parent domain -->
+    <section
+      v-if="allowedDomains.length > 1 && !isCustomDomainLinked"
+      class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
+    >
+      <h2 class="mb-4">Parent Domain</h2>
+      <p class="text-sm text-gray-400 mb-4">Change which domain your site is hosted on.</p>
+
+      <div class="flex gap-3">
+        <select
+          v-model="selectedParentDomain"
+          class="flex-1 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 border border-gray-200 dark:border-gray-700"
+        >
+          <option v-for="d in allowedDomains" :key="d" :value="d">
+            {{ siteStore.tag }}.{{ d }}
+          </option>
+        </select>
+        <AsyncButton
+          class="button"
+          :busy="parentDomainBusy"
+          :disabled="!isParentDomainChanged"
+          @click="changeParentDomain()"
+        >
+          Save
+        </AsyncButton>
+      </div>
+
+      <p
+        v-if="parentDomainFeedback"
+        class="pl-3 mt-4 text-sm text-left border-l-2"
+        :class="
+          parentDomainFeedback.type === 'error'
+            ? 'text-red-400 border-red-500'
+            : 'text-green-400 border-green-500'
+        "
+      >
+        {{ parentDomainFeedback.text }}
+      </p>
+    </section>
+
     <!-- custom domain -->
     <section
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
@@ -281,7 +359,7 @@ export default defineComponent({
         <template v-else>
           <p class="text-sm text-gray-400 mb-4">
             Point a CNAME record for your domain to
-            <code class="text-cyan-400">{{ siteStore.hostname }}</code> before linking.
+            <code class="text-cyan-400">cname.no-cost.site</code> before linking.
           </p>
 
           <div class="mb-4">

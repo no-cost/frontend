@@ -16,12 +16,23 @@ export default defineComponent({
       info: null as null | string,
       success: false,
       turnstileToken: null as null | string,
+      allowedDomains: [] as string[],
     }
   },
   computed: {
     turnstileSiteKey(): string {
       return import.meta.env.VITE_TURNSTILE_SITE_KEY
     },
+  },
+  async mounted() {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/v1/signup/allowed-domains`,
+      )
+      if (response.ok) {
+        this.allowedDomains = await response.json()
+      }
+    } catch {}
   },
   methods: {
     resetTurnstile() {
@@ -106,7 +117,16 @@ export default defineComponent({
           </select>
         </div>
 
-        <input type="hidden" name="parent_domain" value="no-cost.site" />
+        <div v-if="allowedDomains.length > 1" class="mt-4 space-y-2">
+          <span class="text-sm font-medium">Domain</span>
+          <select
+            name="parent_domain"
+            class="w-full p-3 my-2 rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 border border-gray-200 dark:border-gray-700"
+            required
+          >
+            <option v-for="d in allowedDomains" :key="d" :value="d">{{ d }}</option>
+          </select>
+        </div>
 
         <VueTurnstile
           ref="turnstile"
