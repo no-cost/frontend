@@ -17,12 +17,16 @@ export default defineComponent({
       parentDomainFeedback: null as Feedback,
       domainFeedback: null as Feedback,
       skinFeedback: null as Feedback,
+      languageFeedback: null as Feedback,
+      poweredByFeedback: null as Feedback,
       brandingFeedback: null as Feedback,
       fixupFeedback: null as Feedback,
 
       parentDomainBusy: false,
       domainBusy: false,
       skinBusy: false,
+      languageBusy: false,
+      poweredByBusy: false,
       fixupBusy: false,
 
       // domain linking
@@ -34,6 +38,9 @@ export default defineComponent({
       // mediawiki
       allowedSkins: [] as string[],
       currentSkin: '',
+      allowedLanguages: [] as string[],
+      currentLanguage: '',
+      hidePoweredBy: false,
       currentLogo: null as string | null,
       currentFavicon: null as string | null,
       uploading: null as 'logo' | 'favicon' | null,
@@ -164,9 +171,12 @@ export default defineComponent({
 
     async loadMediaWikiSettings() {
       try {
-        const [settingsRes, skinsRes] = await Promise.all([
+        const [settingsRes, skinsRes, languagesRes] = await Promise.all([
           fetch(`${API_URL}/v1/settings/mediawiki/`, { headers: this.authHeaders() }),
           fetch(`${API_URL}/v1/settings/mediawiki/default-skin`, {
+            headers: this.authHeaders(),
+          }),
+          fetch(`${API_URL}/v1/settings/mediawiki/default-language`, {
             headers: this.authHeaders(),
           }),
         ])
@@ -174,12 +184,18 @@ export default defineComponent({
         if (settingsRes.ok) {
           const settings = await settingsRes.json()
           this.currentSkin = settings.skin ?? ''
+          this.currentLanguage = settings.language ?? ''
+          this.hidePoweredBy = settings.hide_powered_by ?? false
           this.currentLogo = settings.logo ?? null
           this.currentFavicon = settings.favicon ?? null
         }
 
         if (skinsRes.ok) {
           this.allowedSkins = await skinsRes.json()
+        }
+
+        if (languagesRes.ok) {
+          this.allowedLanguages = await languagesRes.json()
         }
       } catch {}
     },
@@ -209,6 +225,63 @@ export default defineComponent({
         this.skinFeedback = { type: 'error', text: 'Network error. Please try again.' }
       } finally {
         this.skinBusy = false
+      }
+    },
+
+    async setLanguage() {
+      this.languageFeedback = null
+      this.languageBusy = true
+
+      try {
+        const response = await fetch(`${API_URL}/v1/settings/mediawiki/default-language`, {
+          method: 'PATCH',
+          headers: { ...this.authHeaders(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ language: this.currentLanguage }),
+        })
+
+        if (!response.ok) {
+          this.languageFeedback = { type: 'error', text: await extractError(response) }
+          return
+        }
+
+        const data = await response.json()
+        this.languageFeedback = {
+          type: 'success',
+          text: `Default language set to "${data.language}".`,
+        }
+      } catch {
+        this.languageFeedback = { type: 'error', text: 'Network error. Please try again.' }
+      } finally {
+        this.languageBusy = false
+      }
+    },
+
+    async setHidePoweredBy() {
+      this.poweredByFeedback = null
+      this.poweredByBusy = true
+
+      try {
+        const response = await fetch(`${API_URL}/v1/settings/mediawiki/hide-powered-by`, {
+          method: 'PATCH',
+          headers: { ...this.authHeaders(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ hide_powered_by: this.hidePoweredBy }),
+        })
+
+        if (!response.ok) {
+          this.poweredByFeedback = { type: 'error', text: await extractError(response) }
+          return
+        }
+
+        this.poweredByFeedback = {
+          type: 'success',
+          text: this.hidePoweredBy
+            ? '"Powered by MediaWiki" footer hidden.'
+            : '"Powered by MediaWiki" footer restored.',
+        }
+      } catch {
+        this.poweredByFeedback = { type: 'error', text: 'Network error. Please try again.' }
+      } finally {
+        this.poweredByBusy = false
       }
     },
 
@@ -432,6 +505,62 @@ export default defineComponent({
           "
         >
           {{ skinFeedback.text }}
+        </p>
+      </div>
+
+      <!-- default language -->
+      <div class="mb-6">
+        <label class="text-sm font-medium text-gray-300 block mb-1.5">Default Language</label>
+        <div class="flex gap-3">
+          <select
+            v-model="currentLanguage"
+            class="flex-1 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 border border-gray-200 dark:border-gray-700"
+          >
+            <option v-for="lang in allowedLanguages" :key="lang" :value="lang">{{ lang }}</option>
+          </select>
+          <AsyncButton
+            class="button"
+            :busy="languageBusy"
+            :disabled="!currentLanguage"
+            @click="setLanguage()"
+          >
+            Save
+          </AsyncButton>
+        </div>
+        <p
+          v-if="languageFeedback"
+          class="pl-3 mt-3 text-sm text-left border-l-2"
+          :class="
+            languageFeedback.type === 'error'
+              ? 'text-red-400 border-red-500'
+              : 'text-green-400 border-green-500'
+          "
+        >
+          {{ languageFeedback.text }}
+        </p>
+      </div>
+
+      <!-- hide "powered by mediawiki" footer -->
+      <div class="mb-6">
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input
+            v-model="hidePoweredBy"
+            type="checkbox"
+            class="w-4 h-4 rounded border-gray-600 bg-gray-800 text-cyan-500 focus:ring-cyan-500/50 focus:ring-2 cursor-pointer"
+            @change="setHidePoweredBy()"
+          />
+          <span class="text-sm font-medium text-gray-300">Hide "Powered by MediaWiki" footer</span>
+        </label>
+        <p
+          v-if="poweredByFeedback"
+          class="pl-3 mt-3 text-sm text-left border-l-2"
+          :class="
+            poweredByFeedback.type === 'error'
+              ? 'text-red-400 border-red-500'
+              : 'text-green-400 border-green-500'
+          "
+        >
+          {{ poweredByFeedback.text }}
         </p>
       </div>
 
