@@ -121,7 +121,7 @@ export default defineComponent({
 
         const { token } = await response.json()
         window.open(`${API_URL}/v1/account/export?token=${encodeURIComponent(token)}`, '_self')
-        this.exportFeedback = { type: 'success', text: 'Download started.' }
+        this.exportFeedback = { type: 'success', text: 'Download is starting...' }
       } catch {
         this.exportFeedback = { type: 'error', text: 'Network error. Please try again.' }
       } finally {
