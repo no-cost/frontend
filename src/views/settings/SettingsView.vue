@@ -1,13 +1,30 @@
 <script lang="ts">
+import useSiteStore from '@/stores/siteStore'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { mapStores } from 'pinia'
 import { defineComponent } from 'vue'
 
-import useSiteStore from '@/stores/siteStore'
-import { mapStores } from 'pinia'
+import AccountTab from '@/views/settings/AccountTab.vue'
+import OverviewTab from '@/views/settings/OverviewTab.vue'
+import SiteSettingsTab from '@/views/settings/SiteSettingsTab.vue'
 
 export default defineComponent({
   name: 'SettingsView',
+  components: { OverviewTab, SiteSettingsTab, AccountTab, FontAwesomeIcon },
+  data() {
+    return {
+      activeTab: 'overview' as 'overview' | 'site' | 'account',
+    }
+  },
   computed: {
     ...mapStores(useSiteStore),
+    tabs(): { key: string; label: string }[] {
+      return [
+        { key: 'overview', label: 'Overview' },
+        { key: 'site', label: 'Site Settings' },
+        { key: 'account', label: 'Account' },
+      ]
+    },
   },
   methods: {
     async logout() {
@@ -19,51 +36,41 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="max-w-lg mx-auto px-6">
+  <div class="max-w-2xl mx-auto px-6">
     <div class="mb-10 text-center">
-      <h1 class="big text-3xl">Site Overview</h1>
-      <p class="text-gray-400">Your site at a glance.</p>
+      <h1 class="big text-3xl">Settings</h1>
+      <p class="text-gray-400">Manage your site and account.</p>
     </div>
 
-    <div
-      class="p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
-    >
-      <div class="space-y-5">
-        <div
-          class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800"
+    <div class="flex items-center border-b border-gray-200 dark:border-gray-800 mb-8">
+      <div class="flex flex-1">
+        <button
+          v-for="tab in tabs"
+          :key="tab.key"
+          class="px-4 py-2.5 text-sm font-medium transition-colors -mb-px"
+          :class="
+            activeTab === tab.key
+              ? 'text-cyan-400 border-b-2 border-cyan-400'
+              : 'text-gray-500 hover:text-gray-300'
+          "
+          @click="activeTab = tab.key as typeof activeTab"
         >
-          <span class="text-sm font-medium text-gray-500">Site Tag</span>
-          <a
-            class="text-cyan-400 hover:text-cyan-300 transition-colors font-mono text-sm"
-            :href="'https://' + siteStore.hostname"
-          >
-            {{ siteStore.tag }}
-          </a>
-        </div>
-        <div
-          class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800"
-        >
-          <span class="text-sm font-medium text-gray-500">Application</span>
-          <span class="text-sm text-gray-200">{{ siteStore.siteType }}</span>
-        </div>
-        <div
-          class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800"
-        >
-          <span class="text-sm font-medium text-gray-500">E-mail</span>
-          <span class="text-sm text-gray-200">{{ siteStore.email }}</span>
-        </div>
-        <div class="flex justify-between items-center">
-          <span class="text-sm font-medium text-gray-500">Donated</span>
-          <span class="text-sm text-gray-200">
-            {{ siteStore.donated.toFixed(2) }} € &mdash;
-            <RouterLink :to="{ name: 'donate' }">donate?</RouterLink>
-          </span>
-        </div>
+          {{ tab.label }}
+        </button>
       </div>
 
-      <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800">
-        <button class="button w-full text-center" @click="logout()">Logout</button>
-      </div>
+      <button
+        class="px-3 py-1.5 text-sm rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium transition-colors flex items-center gap-1.5"
+        title="Logout"
+        @click="logout()"
+      >
+        <FontAwesomeIcon icon="right-from-bracket" />
+        <span class="hidden sm:inline">Logout</span>
+      </button>
     </div>
+
+    <OverviewTab v-if="activeTab === 'overview'" />
+    <SiteSettingsTab v-else-if="activeTab === 'site'" />
+    <AccountTab v-else-if="activeTab === 'account'" />
   </div>
 </template>

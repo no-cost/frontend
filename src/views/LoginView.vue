@@ -1,9 +1,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import useSiteStore from '@/stores/siteStore'
-import { mapStores } from 'pinia'
 import FormFieldComponent from '@/components/FormFieldComponent.vue'
+import useSiteStore from '@/stores/siteStore'
+import { extractError } from '@/utils/api'
+import { mapStores } from 'pinia'
 
 export default defineComponent({
   name: 'LoginView',
@@ -33,13 +34,12 @@ export default defineComponent({
           body,
         })
 
-        const data = await response.json()
-
         if (!response.ok) {
-          this.info = data.detail ?? 'Login failed'
+          this.info = await extractError(response, 'Login failed')
           return
         }
 
+        const data = await response.json()
         this.siteStore.saveToken(data.access_token, formData.get('remember') === 'on')
         await this.siteStore.getSiteData()
         this.$router.push({ name: 'settings' })

@@ -3,6 +3,7 @@ import { defineComponent } from 'vue'
 import VueTurnstile from 'vue-turnstile'
 
 import FormFieldComponent from '@/components/FormFieldComponent.vue'
+import { extractError } from '@/utils/api'
 
 export default defineComponent({
   name: 'ResetPasswordView',
@@ -41,14 +42,23 @@ export default defineComponent({
 
       const formData = new FormData(form)
       try {
-        await fetch(`${import.meta.env.VITE_API_URL}/v1/account/reset-password/request`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            site: formData.get('site'),
-            turnstile_token: this.turnstileToken,
-          }),
-        })
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/v1/account/reset-password/request`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              site: formData.get('site'),
+              turnstile_token: this.turnstileToken,
+            }),
+          },
+        )
+
+        if (!response.ok) {
+          this.info = await extractError(response)
+          this.resetTurnstile()
+          return
+        }
 
         this.success = true
         this.info =
@@ -78,10 +88,8 @@ export default defineComponent({
           body: JSON.stringify({ token: this.token, password }),
         })
 
-        const data = await response.json()
-
         if (!response.ok) {
-          this.info = data.detail ?? 'Failed to set password.'
+          this.info = await extractError(response, 'Failed to set password.')
           return
         }
 

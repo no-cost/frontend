@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia'
 import router from '@/router'
+import { defineStore } from 'pinia'
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -11,6 +11,8 @@ export default defineStore('site', {
     siteType: '',
     hostname: '',
     donated: 0,
+    installedAt: null as string | null,
+    createdAt: '',
   }),
   actions: {
     saveToken(token: string, remember: boolean = true) {
@@ -32,6 +34,8 @@ export default defineStore('site', {
       this.siteType = ''
       this.hostname = ''
       this.donated = 0
+      this.installedAt = null
+      this.createdAt = ''
     },
     async getSiteData() {
       if (!this.isAuthenticated) return
@@ -55,6 +59,8 @@ export default defineStore('site', {
         this.siteType = data.site_type
         this.hostname = data.hostname
         this.donated = data.donated_amount ?? 0
+        this.installedAt = data.installed_at
+        this.createdAt = data.created_at
       } catch {
         // network error; don't logout, server may just be unreachable
       }
@@ -62,5 +68,6 @@ export default defineStore('site', {
   },
   getters: {
     isAuthenticated: (state): boolean => state.token.length > 0,
+    isDonor: (state): boolean => state.donated >= 7.0,
   },
 })

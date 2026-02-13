@@ -1,15 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import useSiteStore from '@/stores/siteStore'
+import ConfirmEmailView from '@/views/ConfirmEmailView.vue'
+import ContactView from '@/views/contact/ContactView.vue'
+import DonateView from '@/views/DonateView.vue'
+import FeaturesView from '@/views/FeaturesView.vue'
 import HomeView from '@/views/home/HomeView.vue'
 import SignUpView from '@/views/home/SignUpView.vue'
-import ContactView from '@/views/contact/ContactView.vue'
-import FeaturesView from '@/views/FeaturesView.vue'
-import SettingsView from '@/views/settings/SettingsView.vue'
-import DonateView from '@/views/DonateView.vue'
-import NotFoundView from '@/views/NotFoundView.vue'
 import LoginView from '@/views/LoginView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 import ResetPasswordView from '@/views/ResetPasswordView.vue'
-import useSiteStore from '@/stores/siteStore'
+import SettingsView from '@/views/settings/SettingsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: '/reset-password',
       name: 'reset-password',
       component: ResetPasswordView,
+    },
+    {
+      path: '/confirm-email',
+      name: 'confirm-email',
+      component: ConfirmEmailView,
     },
     {
       path: '/settings',

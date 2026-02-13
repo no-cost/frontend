@@ -27,7 +27,7 @@ export default defineComponent({
       >
         <div class="mb-6">
           <span
-            class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400"
+            class="text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-400"
           >
             7 €
           </span>
@@ -45,7 +45,7 @@ export default defineComponent({
           </li>
           <li class="flex gap-3 items-start">
             <span class="text-cyan-400 mt-0.5">&#10003;</span>
-            <span>Priority support for your site</span>
+            <span>Ability to link your own domain to your site</span>
           </li>
         </ul>
       </div>

@@ -3,6 +3,7 @@ import { defineComponent } from 'vue'
 import VueTurnstile from 'vue-turnstile'
 
 import FormFieldComponent from '@/components/FormFieldComponent.vue'
+import { extractError } from '@/utils/api'
 
 export default defineComponent({
   name: 'SignUpView',
@@ -49,10 +50,8 @@ export default defineComponent({
           }),
         })
 
-        const data = await response.json()
-
         if (!response.ok) {
-          this.info = data.detail ?? 'Something went wrong.'
+          this.info = await extractError(response)
           this.resetTurnstile()
           return
         }
@@ -85,7 +84,13 @@ export default defineComponent({
       </template>
 
       <form v-else method="POST" @submit.prevent="createSite($event.target as HTMLFormElement)">
-        <FormFieldComponent title="Tag" placeholder="Your site name" pattern="[a-zA-Z0-9_]{3,32}" title_attr="Only letters, digits, and/or underscores, between 3 and 32 characters" required />
+        <FormFieldComponent
+          title="Tag"
+          placeholder="Your site name"
+          pattern="[a-zA-Z0-9_]{3,32}"
+          title_attr="Only letters, digits, and/or underscores, between 3 and 32 characters"
+          required
+        />
         <FormFieldComponent type="email" title="Email" placeholder="Your admin email" required />
 
         <div class="mt-4 space-y-2">

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'HomeView',
@@ -50,10 +50,10 @@ export default defineComponent({
   <div>
     <!-- hero -->
     <section
-      class="relative py-20 md:py-32 text-center overflow-hidden -mx-4 -mt-6 px-6 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950"
+      class="relative py-20 md:py-32 text-center overflow-hidden -mx-4 -mt-6 px-6 bg-linear-to-b from-gray-950 via-gray-900 to-gray-950"
     >
       <div
-        class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(6,182,212,0.12),_transparent_60%)]"
+        class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.12),transparent_60%)]"
       ></div>
       <div class="relative max-w-3xl mx-auto">
         <h1 class="big">Host your site for free</h1>
