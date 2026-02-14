@@ -24,7 +24,7 @@ export default defineComponent({
   <button
     :type="type"
     :disabled="busy || disabled"
-    :class="{ 'opacity-60 cursor-not-allowed': busy }"
+    :class="{ 'opacity-60 cursor-not-allowed': busy || disabled }"
   >
     <template v-if="busy">Working...</template>
     <slot v-else />
