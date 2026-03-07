@@ -17,7 +17,7 @@ export default defineComponent({
     <!-- header -->
     <div class="mb-16 text-center">
       <h1 class="big">Support no-cost.site</h1>
-      <p class="text-lg text-gray-400">Help us keep free hosting alive. Every donation matters.</p>
+      <p class="text-lg text-gray-500 dark:text-gray-400">Help us keep free hosting alive. Every donation matters.</p>
     </div>
 
     <!-- perks -->
@@ -31,7 +31,7 @@ export default defineComponent({
           >
             7 €
           </span>
-          <p class="mt-2 text-sm text-gray-400">One-time donation, and you get:</p>
+          <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">One-time donation, and you get:</p>
         </div>
 
         <ul class="space-y-3 text-left text-sm">
@@ -62,34 +62,34 @@ export default defineComponent({
         </div>
 
         <div class="grid items-start grid-cols-1 gap-8 lg:grid-cols-2">
-          <div class="p-6 space-y-4 text-sm rounded-xl border border-cyan-500/30 bg-cyan-950/20">
+          <div class="p-6 space-y-4 text-sm rounded-xl border border-cyan-500/30 bg-cyan-50 dark:bg-cyan-950/20">
             <p class="font-semibold text-cyan-400">Important</p>
-            <p class="text-gray-300">
+            <p class="text-gray-600 dark:text-gray-300">
               When donating, please input nothing else except your site tag in the donation message.
               Our system will automatically mark you as donor by scanning the donation message.
             </p>
 
-            <div class="p-4 rounded-lg bg-gray-800/50" v-if="siteStore.isAuthenticated">
-              <p class="text-gray-400">Your site tag is:</p>
+            <div class="p-4 rounded-lg bg-gray-100 dark:bg-gray-800/50" v-if="siteStore.isAuthenticated">
+              <p class="text-gray-500 dark:text-gray-400">Your site tag is:</p>
               <pre class="mt-1 text-cyan-400 font-mono">{{ siteStore.tag }}</pre>
               <p class="mt-2 text-xs text-gray-500">
                 Include that and nothing else in the donation message.
               </p>
             </div>
-            <p v-else class="text-gray-400">
+            <p v-else class="text-gray-500 dark:text-gray-400">
               <RouterLink :to="{ name: 'login' }">Log in to your settings</RouterLink>
               and your site tag will appear here.
             </p>
 
-            <ul class="space-y-1 text-gray-400">
-              <li><b class="text-gray-300">Nickname</b> can be anything that you want.</li>
+            <ul class="space-y-1 text-gray-500 dark:text-gray-400">
+              <li><b class="text-gray-700 dark:text-gray-300">Nickname</b> can be anything that you want.</li>
               <li>
-                You can check <b class="text-gray-300">Private message</b> so only we can see your
+                You can check <b class="text-gray-700 dark:text-gray-300">Private message</b> so only we can see your
                 donation message.
               </li>
             </ul>
 
-            <p class="text-gray-400">
+            <p class="text-gray-500 dark:text-gray-400">
               If we can't find your site tag in the donation message, your site will not be
               automatically marked as donor. If you have donated and haven't received a thank-you
               E-mail within a day, please

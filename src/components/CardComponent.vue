@@ -38,6 +38,7 @@ export default defineComponent({
 
 <style scoped>
 @import 'tailwindcss';
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 a.card {
   @apply flex flex-row gap-5 items-start rounded-xl p-6 transition-all duration-200

@@ -4,6 +4,7 @@ import VueTurnstile from 'vue-turnstile'
 
 import FormFieldComponent from '@/components/FormFieldComponent.vue'
 import { extractError } from '@/utils/api'
+import { isDark } from '@/utils/theme'
 
 export default defineComponent({
   name: 'ResetPasswordView',
@@ -25,6 +26,9 @@ export default defineComponent({
     },
     turnstileSiteKey(): string {
       return import.meta.env.VITE_TURNSTILE_SITE_KEY
+    },
+    turnstileTheme(): string {
+      return isDark() ? 'dark' : 'light'
     },
   },
   methods: {
@@ -113,7 +117,7 @@ export default defineComponent({
         <h1 class="mb-8 text-center font-bold text-3xl">Set your password</h1>
 
         <template v-if="success">
-          <p class="text-sm text-gray-400 text-center">
+          <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
             Your password has been set.
             <RouterLink :to="{ name: 'login' }" class="text-cyan-400">Log in</RouterLink>
           </p>
@@ -151,13 +155,13 @@ export default defineComponent({
       <template v-else>
         <h1 class="mb-4 text-center font-bold text-3xl">Reset password</h1>
 
-        <p class="mb-8 text-sm text-center text-gray-400">
-          This resets your <strong class="text-gray-300">settings panel</strong> password. To reset
+        <p class="mb-8 text-sm text-center text-gray-500 dark:text-gray-400">
+          This resets your <strong class="text-gray-700 dark:text-gray-300">settings panel</strong> password. To reset
           your instance's admin password, use the app's built-in password reset (at your site URL).
         </p>
 
         <template v-if="success">
-          <p class="text-sm text-gray-400 text-center">{{ info }}</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400 text-center">{{ info }}</p>
         </template>
 
         <form v-else method="POST" @submit.prevent="requestReset($event.target as HTMLFormElement)">
@@ -173,7 +177,7 @@ export default defineComponent({
             ref="turnstile"
             :site-key="turnstileSiteKey"
             v-model="turnstileToken"
-            theme="dark"
+            :theme="turnstileTheme"
             class="mt-4"
           />
 

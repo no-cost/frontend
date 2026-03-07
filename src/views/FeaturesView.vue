@@ -69,7 +69,7 @@ export default defineComponent({
           <h2 class="font-semibold">{{ app.name }}</h2>
           <p class="mt-1 text-gray-500 dark:text-gray-400">{{ app.description }}</p>
 
-          <h6 class="mt-3 font-semibold text-gray-600 dark:text-gray-300">Features:</h6>
+          <h6 class="mt-3 font-semibold text-gray-700 dark:text-gray-300">Features:</h6>
           <ul class="mt-3 text-gray-500 dark:text-gray-400">
             <li
               v-for="feature in app.features"

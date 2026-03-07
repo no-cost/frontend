@@ -21,7 +21,7 @@ export default defineComponent({
     />
 
     <div
-      class="p-5 my-10 text-sm rounded-xl border border-cyan-500/30 bg-cyan-950/20 text-gray-300"
+      class="p-5 my-10 text-sm rounded-xl border border-cyan-500/30 bg-cyan-50 dark:bg-cyan-950/20 text-gray-600 dark:text-gray-300"
     >
       <b class="text-cyan-400">Note:</b> no-cost.site is an independent hosting service. We can help
       with platform-related issues, but we cannot fix bugs in third-party software. In such cases,
@@ -31,12 +31,12 @@ export default defineComponent({
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
       <CardComponent :icon="['fab', 'github']" href="https://github.com/nocost-site">
         <h3 class="font-semibold">GitHub</h3>
-        <p class="text-sm text-gray-400">Report issues and contribute</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Report issues and contribute</p>
       </CardComponent>
 
       <CardComponent :icon="['fas', 'envelope']" href="mailto:info@no-cost.site">
         <h3 class="font-semibold">E-mail</h3>
-        <p class="text-sm text-gray-400">For private inquiries</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">For private inquiries</p>
       </CardComponent>
     </div>
   </div>

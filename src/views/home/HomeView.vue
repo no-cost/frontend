@@ -50,21 +50,22 @@ export default defineComponent({
   <div>
     <!-- hero -->
     <section
-      class="relative py-20 md:py-32 text-center overflow-hidden -mx-4 -mt-6 px-6 bg-linear-to-b from-gray-950 via-gray-900 to-gray-950"
+      class="relative py-20 md:py-32 text-center overflow-hidden -mx-4 -mt-6 px-6 bg-linear-to-b from-gray-100 via-white to-gray-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950"
     >
       <div
-        class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.12),transparent_60%)]"
+        class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.08),transparent_60%)] dark:bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.12),transparent_60%)]"
       ></div>
       <div class="relative max-w-3xl mx-auto">
         <h1 class="big">Host your site for free</h1>
-        <p class="my-6 text-lg md:text-xl text-gray-400 max-w-xl mx-auto">
+        <p class="my-6 text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
           Choose from Flarum, MediaWiki, or WordPress. Create your site in minutes &mdash; no
           strings attached.
         </p>
+
         <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
           <RouterLink class="button" :to="{ name: 'signup' }">Get Started</RouterLink>
           <RouterLink
-            class="inline-block py-2.5 px-5 rounded-lg border border-gray-700 text-gray-300 hover:border-cyan-600 hover:text-cyan-400 transition-all font-semibold"
+            class="inline-block py-2.5 px-5 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-cyan-600 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all font-semibold"
             :to="{ name: 'features' }"
           >
             Learn More
@@ -78,11 +79,11 @@ export default defineComponent({
       <div class="max-w-screen-lg mx-auto">
         <div class="mb-12 md:mb-16 text-center">
           <h1
-            class="mb-3 text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400"
+            class="mb-3 text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-cyan-500 dark:from-cyan-400 to-blue-500 dark:to-blue-400"
           >
             Why no-cost.site?
           </h1>
-          <p class="text-lg text-gray-400">Everything you need to get your project online.</p>
+          <p class="text-lg text-gray-500 dark:text-gray-400">Everything you need to get your project online.</p>
         </div>
 
         <div class="grid gap-6 md:grid-cols-2 lg:gap-8">

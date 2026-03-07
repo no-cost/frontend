@@ -1,10 +1,18 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+import { isDark, toggleTheme } from '@/utils/theme'
+
 export default defineComponent({
   name: 'FooterComponent',
+  components: {
+    FontAwesomeIcon,
+  },
   data() {
     return {
+      dark: isDark(),
       linkGroups: {
         'no-cost.site': {
           GitHub: 'https://github.com/nocost-site',
@@ -29,6 +37,12 @@ export default defineComponent({
   computed: {
     aktualnyRok(): number {
       return new Date().getFullYear()
+    },
+  },
+  methods: {
+    toggleTheme() {
+      toggleTheme()
+      this.dark = isDark()
     },
   },
 })
@@ -56,7 +70,7 @@ export default defineComponent({
     <div
       class="max-w-screen-xl mx-auto px-8 mt-12 pt-8 border-t border-gray-100 dark:border-gray-800"
     >
-      <div class="text-sm text-center text-gray-400">
+      <div class="text-sm text-center text-gray-500 dark:text-gray-400">
         <p>
           Copyright &copy;
           <span>{{ aktualnyRok }}</span> no-cost.site.
@@ -65,6 +79,15 @@ export default defineComponent({
           no-cost.site is an independent hosting service and is not affiliated with Flarum,
           MediaWiki, or WordPress.
         </p>
+
+        <button
+          @click="toggleTheme"
+          class="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg text-gray-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors cursor-pointer"
+          :aria-label="dark ? 'Switch to light mode' : 'Switch to dark mode'"
+        >
+          <FontAwesomeIcon :icon="['fas', dark ? 'sun' : 'moon']" />
+          <span>{{ dark ? 'Light theme' : 'Dark theme' }}</span>
+        </button>
       </div>
     </div>
   </footer>
@@ -72,6 +95,7 @@ export default defineComponent({
 
 <style scoped>
 @import 'tailwindcss';
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 a[href] {
   @apply text-gray-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors text-sm;

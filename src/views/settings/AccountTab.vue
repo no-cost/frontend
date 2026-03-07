@@ -214,7 +214,7 @@ export default defineComponent({
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
       <h2 class="mb-2">Change E-mail</h2>
-      <p class="text-sm text-gray-400 mb-4">A confirmation link will be sent to the new address.</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">A confirmation link will be sent to the new address.</p>
       <form @submit.prevent="changeEmail($event.target as HTMLFormElement)">
         <FormFieldComponent
           type="email"
@@ -249,7 +249,7 @@ export default defineComponent({
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
       <h2 class="mb-2">Export Data</h2>
-      <p class="text-sm text-gray-400 mb-4">Download your site data as a .tar.gz archive.</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Download your site data as a .tar.gz archive.</p>
       <AsyncButton class="button" :busy="exportBusy" @click="exportData()"
         >Download Export</AsyncButton
       >
@@ -269,7 +269,7 @@ export default defineComponent({
     <!-- delete account -->
     <section class="p-6 rounded-2xl border border-red-500/30 bg-white dark:bg-gray-900">
       <h2 class="mb-2 text-red-400">Delete Account</h2>
-      <p class="text-sm text-gray-400 mb-4">
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
         Permanently delete your site and all associated data. This cannot be undone.
       </p>
       <AsyncButton

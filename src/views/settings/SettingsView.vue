@@ -39,7 +39,7 @@ export default defineComponent({
   <div class="max-w-2xl mx-auto px-6">
     <div class="mb-10 text-center">
       <h1 class="big text-3xl">Settings</h1>
-      <p class="text-gray-400">Manage your site and account.</p>
+      <p class="text-gray-500 dark:text-gray-400">Manage your site and account.</p>
     </div>
 
     <div class="flex items-center border-b border-gray-200 dark:border-gray-800 mb-8">
@@ -51,7 +51,7 @@ export default defineComponent({
           :class="
             activeTab === tab.key
               ? 'text-cyan-400 border-b-2 border-cyan-400'
-              : 'text-gray-500 hover:text-gray-300'
+              : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
           "
           @click="activeTab = tab.key as typeof activeTab"
         >

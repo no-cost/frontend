@@ -4,6 +4,7 @@ import VueTurnstile from 'vue-turnstile'
 
 import FormFieldComponent from '@/components/FormFieldComponent.vue'
 import { extractError } from '@/utils/api'
+import { isDark } from '@/utils/theme'
 
 export default defineComponent({
   name: 'SignUpView',
@@ -22,6 +23,9 @@ export default defineComponent({
   computed: {
     turnstileSiteKey(): string {
       return import.meta.env.VITE_TURNSTILE_SITE_KEY
+    },
+    turnstileTheme(): string {
+      return isDark() ? 'dark' : 'light'
     },
   },
   async mounted() {
@@ -89,7 +93,7 @@ export default defineComponent({
       </h1>
 
       <template v-if="success">
-        <p class="text-sm text-gray-400 text-center">
+        <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
           Your site is being installed. Check your email to set your password and get started.
         </p>
       </template>
@@ -132,7 +136,7 @@ export default defineComponent({
           ref="turnstile"
           :site-key="turnstileSiteKey"
           v-model="turnstileToken"
-          theme="dark"
+          :theme="turnstileTheme"
           class="mt-4"
         />
 
