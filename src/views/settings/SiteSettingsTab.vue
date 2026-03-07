@@ -362,7 +362,9 @@ export default defineComponent({
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
       <h2 class="mb-4">Parent Domain</h2>
-      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Change which domain your site is hosted on.</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+        Change which domain your site is hosted on.
+      </p>
 
       <div class="flex gap-3">
         <select
@@ -436,7 +438,9 @@ export default defineComponent({
           </p>
 
           <div class="mb-4">
-            <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">Domain</label>
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5"
+              >Domain</label
+            >
             <input
               v-model="customDomain"
               type="text"
@@ -483,7 +487,9 @@ export default defineComponent({
 
       <!-- default skin -->
       <div class="mb-6">
-        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">Default Skin</label>
+        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5"
+          >Default Skin</label
+        >
         <div class="flex gap-3">
           <select
             v-model="currentSkin"
@@ -510,7 +516,9 @@ export default defineComponent({
 
       <!-- default language -->
       <div class="mb-6">
-        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">Default Language</label>
+        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5"
+          >Default Language</label
+        >
         <div class="flex gap-3">
           <select
             v-model="currentLanguage"
@@ -549,7 +557,9 @@ export default defineComponent({
             class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-cyan-500 focus:ring-cyan-500/50 focus:ring-2 cursor-pointer"
             @change="setHidePoweredByMw()"
           />
-          <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Hide "Powered by MediaWiki" footer</span>
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-300"
+            >Hide "Powered by MediaWiki" footer</span
+          >
         </label>
         <p
           v-if="poweredByFeedback"
@@ -566,7 +576,9 @@ export default defineComponent({
 
       <!-- logo -->
       <div class="mb-6">
-        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">Logo</label>
+        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5"
+          >Logo</label
+        >
         <div v-if="currentLogo" class="mb-2">
           <img
             :src="brandingUrl(currentLogo)"
@@ -574,7 +586,9 @@ export default defineComponent({
             class="h-16 rounded border border-gray-200 dark:border-gray-700"
           />
         </div>
-        <p v-if="uploading === 'logo'" class="text-sm text-gray-500 dark:text-gray-400 mb-1">Uploading...</p>
+        <p v-if="uploading === 'logo'" class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+          Uploading...
+        </p>
         <input
           v-else
           type="file"
@@ -586,7 +600,9 @@ export default defineComponent({
 
       <!-- favicon -->
       <div>
-        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">Favicon</label>
+        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5"
+          >Favicon</label
+        >
         <div v-if="currentFavicon" class="mb-2">
           <img
             :src="brandingUrl(currentFavicon)"
@@ -594,7 +610,9 @@ export default defineComponent({
             class="h-8 rounded border border-gray-200 dark:border-gray-700"
           />
         </div>
-        <p v-if="uploading === 'favicon'" class="text-sm text-gray-500 dark:text-gray-400 mb-1">Uploading...</p>
+        <p v-if="uploading === 'favicon'" class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+          Uploading...
+        </p>
         <input
           v-else
           type="file"
@@ -622,7 +640,9 @@ export default defineComponent({
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
       <h2 class="mb-2">Maintenance</h2>
-      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Run migrations and clear caches for your site.</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+        Run migrations and clear caches for your site.
+      </p>
       <AsyncButton class="button" :busy="fixupBusy" @click="runFixup()">Run Fixup</AsyncButton>
       <p
         v-if="fixupFeedback"

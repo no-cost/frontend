@@ -42,7 +42,10 @@ export default defineComponent({
 
 <template>
   <div class="space-y-1.5 mt-4">
-    <label class="text-sm font-medium text-gray-700 dark:text-gray-300" :for="$props.title.toLowerCase()">
+    <label
+      class="text-sm font-medium text-gray-700 dark:text-gray-300"
+      :for="$props.title.toLowerCase()"
+    >
       {{ $props.title }}
     </label>
     <input

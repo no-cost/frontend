@@ -28,7 +28,7 @@ export default defineComponent({
   },
   methods: {
     async logout() {
-      await this.siteStore.logout()
+      await this.siteStore.removeSavedToken()
       this.$router.push({ name: 'login' })
     },
   },

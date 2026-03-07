@@ -1,7 +1,9 @@
 type Theme = 'light' | 'dark' | 'system'
 
 function resolveTheme(theme: Theme): boolean {
-  return theme === 'dark' || (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)
+  return (
+    theme === 'dark' || (theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches)
+  )
 }
 
 function applyTheme(theme: Theme) {

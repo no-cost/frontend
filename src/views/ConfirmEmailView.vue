@@ -56,7 +56,9 @@ export default defineComponent({
     >
       <h1 class="mb-8 text-center font-bold text-3xl">Confirm E-mail</h1>
 
-      <p v-if="loading" class="text-sm text-gray-500 dark:text-gray-400 text-center">Confirming...</p>
+      <p v-if="loading" class="text-sm text-gray-500 dark:text-gray-400 text-center">
+        Confirming...
+      </p>
 
       <p v-else-if="success" class="text-sm text-gray-500 dark:text-gray-400 text-center">
         Your e-mail address has been updated.

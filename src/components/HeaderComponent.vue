@@ -32,10 +32,10 @@ export default defineComponent({
     </a>
 
     <button
-        @click="mobileMenuOpen = !mobileMenuOpen"
-        class="self-center inline-block w-8 h-8 p-1 text-gray-600 bg-gray-200 rounded focus:outline-none md:hidden dark:bg-gray-800 dark:text-gray-400 hover:text-gray-500"
-        aria-label="Open Mobile Menu"
-      >
+      @click="mobileMenuOpen = !mobileMenuOpen"
+      class="self-center inline-block w-8 h-8 p-1 text-gray-600 bg-gray-200 rounded focus:outline-none md:hidden dark:bg-gray-800 dark:text-gray-400 hover:text-gray-500"
+      aria-label="Open Mobile Menu"
+    >
       <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
         <path
           fill-rule="evenodd"

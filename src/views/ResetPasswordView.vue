@@ -156,8 +156,10 @@ export default defineComponent({
         <h1 class="mb-4 text-center font-bold text-3xl">Reset password</h1>
 
         <p class="mb-8 text-sm text-center text-gray-500 dark:text-gray-400">
-          This resets your <strong class="text-gray-700 dark:text-gray-300">settings panel</strong> password. To reset
-          your instance's admin password, use the app's built-in password reset (at your site URL).
+          This resets your
+          <strong class="text-gray-700 dark:text-gray-300">settings panel</strong> password. To
+          reset your instance's admin password, use the app's built-in password reset (at your site
+          URL).
         </p>
 
         <template v-if="success">

@@ -83,7 +83,9 @@ export default defineComponent({
           >
             Why no-cost.site?
           </h1>
-          <p class="text-lg text-gray-500 dark:text-gray-400">Everything you need to get your project online.</p>
+          <p class="text-lg text-gray-500 dark:text-gray-400">
+            Everything you need to get your project online.
+          </p>
         </div>
 
         <div class="grid gap-6 md:grid-cols-2 lg:gap-8">

@@ -30,9 +30,7 @@ export default defineComponent({
   },
   async mounted() {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/v1/signup/allowed-domains`,
-      )
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/v1/signup/allowed-domains`)
       if (response.ok) {
         this.allowedDomains = await response.json()
       }

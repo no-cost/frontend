@@ -1,4 +1,3 @@
-import router from '@/router'
 import { defineStore } from 'pinia'
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -26,7 +25,7 @@ export default defineStore('site', {
       }
       return this.token
     },
-    async logout() {
+    async removeSavedToken() {
       localStorage.removeItem('access_token')
       this.token = ''
       this.tag = ''
@@ -47,8 +46,7 @@ export default defineStore('site', {
 
         if (!response.ok) {
           if (response.status === 401 || response.status === 404) {
-            await this.logout()
-            router.push({ name: 'login' })
+            await this.removeSavedToken()
           }
           return
         }
