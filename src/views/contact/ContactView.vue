@@ -29,7 +29,7 @@ export default defineComponent({
     </div>
 
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-      <CardComponent :icon="['fab', 'github']" href="https://github.com/nocost-site">
+      <CardComponent :icon="['fab', 'github']" href="https://github.com/no-cost">
         <h3 class="font-semibold">GitHub</h3>
         <p class="text-sm text-gray-500 dark:text-gray-400">Report issues and contribute</p>
       </CardComponent>

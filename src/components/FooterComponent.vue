@@ -15,7 +15,7 @@ export default defineComponent({
       dark: isDark(),
       linkGroups: {
         'no-cost.site': {
-          GitHub: 'https://github.com/nocost-site',
+          GitHub: 'https://github.com/no-cost',
           Donate: this.$router.getRoutes().find((route) => route.name == 'donate')?.path,
         },
         Resources: {
