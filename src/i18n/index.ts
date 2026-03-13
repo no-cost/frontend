@@ -10,7 +10,22 @@ export const LOCALES: { code: Locale; label: string }[] = [
   { code: 'sk', label: 'Slovenčina' },
 ]
 
-const savedLocale = (localStorage.getItem('locale') as Locale | null) ?? 'en'
+const SUPPORTED_LOCALES = new Set<string>(LOCALES.map((l) => l.code))
+
+function detectLocale(): Locale {
+  const saved = localStorage.getItem('locale')
+  if (saved && SUPPORTED_LOCALES.has(saved)) return saved as Locale
+
+  // "sk", "sk-SK" -> "sk"
+  for (const lang of navigator.languages) {
+    const code = lang.split('-')[0]!
+    if (SUPPORTED_LOCALES.has(code)) return code as Locale
+  }
+
+  return 'en'
+}
+
+const savedLocale = detectLocale()
 document.documentElement.lang = savedLocale
 
 const i18n = createI18n({
