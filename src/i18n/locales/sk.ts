@@ -225,7 +225,7 @@ export default {
     changeEmail: 'Zmena e-mailu',
     changeEmailDescription: 'Na novú adresu bude odoslaný potvrdzovací odkaz.',
     newEmail: 'Nový e-mail',
-    newEmailPlaceholder: 'novy@priklad.sk',
+    newEmailPlaceholder: "novy{'@'}priklad.sk",
     exportData: 'Export dát',
     exportDescription: 'Stiahnite si dáta vašej stránky ako .tar.gz archív.',
     downloadExport: 'Stiahnuť export',

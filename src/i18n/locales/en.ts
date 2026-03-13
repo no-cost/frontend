@@ -228,7 +228,7 @@ export default {
     changeEmail: 'Change E-mail',
     changeEmailDescription: 'A confirmation link will be sent to the new address.',
     newEmail: 'New E-mail',
-    newEmailPlaceholder: 'new@example.com',
+    newEmailPlaceholder: "new{'@'}example.com",
     exportData: 'Export Data',
     exportDescription: 'Download your site data as a .tar.gz archive.',
     downloadExport: 'Download Export',
