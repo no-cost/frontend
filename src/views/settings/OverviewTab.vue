@@ -22,7 +22,7 @@ export default defineComponent({
       <div
         class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800"
       >
-        <span class="text-sm font-medium text-gray-500">Site Tag</span>
+        <span class="text-sm font-medium text-gray-500">{{ $t('settings.siteTag') }}</span>
         <span class="text-sm text-gray-800 dark:text-gray-200"
           ><code>{{ siteStore.tag }}</code></span
         >
@@ -31,7 +31,7 @@ export default defineComponent({
       <div
         class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800"
       >
-        <span class="text-sm font-medium text-gray-500">Application</span>
+        <span class="text-sm font-medium text-gray-500">{{ $t('settings.application') }}</span>
         <span class="text-sm text-gray-800 dark:text-gray-200">{{
           siteStore.siteType.charAt(0).toUpperCase() + siteStore.siteType.slice(1)
         }}</span>
@@ -40,7 +40,7 @@ export default defineComponent({
       <div
         class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800"
       >
-        <span class="text-sm font-medium text-gray-500">Hostname</span>
+        <span class="text-sm font-medium text-gray-500">{{ $t('settings.hostname') }}</span>
         <span class="text-sm text-gray-800 dark:text-gray-200"
           ><a :href="`https://${siteStore.hostname}`" target="_blank">{{
             siteStore.hostname
@@ -51,22 +51,22 @@ export default defineComponent({
       <div
         class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800"
       >
-        <span class="text-sm font-medium text-gray-500">E-mail</span>
+        <span class="text-sm font-medium text-gray-500">{{ $t('settings.emailLabel') }}</span>
         <span class="text-sm text-gray-800 dark:text-gray-200">{{ siteStore.email }}</span>
       </div>
 
       <div
         class="flex justify-between items-center pb-4 border-b border-gray-100 dark:border-gray-800"
       >
-        <span class="text-sm font-medium text-gray-500">Donated</span>
+        <span class="text-sm font-medium text-gray-500">{{ $t('settings.donated') }}</span>
         <span class="text-sm text-gray-800 dark:text-gray-200">
           {{ siteStore.donated.toFixed(2) }} &euro; &mdash;
-          <RouterLink :to="{ name: 'donate' }">donate?</RouterLink>
+          <RouterLink :to="{ name: 'donate' }">{{ $t('settings.donatePrompt') }}</RouterLink>
         </span>
       </div>
 
       <div class="flex justify-between items-center">
-        <span class="text-sm font-medium text-gray-500">Created</span>
+        <span class="text-sm font-medium text-gray-500">{{ $t('settings.created') }}</span>
         <span class="text-sm text-gray-800 dark:text-gray-200">{{ formattedCreatedAt }}</span>
       </div>
     </div>

@@ -41,7 +41,7 @@ export default defineComponent({
       const confirmPassword = formData.get('confirm password') as string
 
       if (newPassword !== confirmPassword) {
-        this.passwordFeedback = { type: 'error', text: 'Passwords do not match.' }
+        this.passwordFeedback = { type: 'error', text: this.$t('common.passwordsNoMatch') }
         return
       }
 
@@ -67,7 +67,7 @@ export default defineComponent({
         this.passwordFeedback = { type: 'success', text: data.message }
         form.reset()
       } catch {
-        this.passwordFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.passwordFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.passwordBusy = false
       }
@@ -98,7 +98,7 @@ export default defineComponent({
         this.emailFeedback = { type: 'success', text: data.message }
         form.reset()
       } catch {
-        this.emailFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.emailFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.emailBusy = false
       }
@@ -121,21 +121,16 @@ export default defineComponent({
 
         const { token } = await response.json()
         window.open(`${API_URL}/v1/account/export?token=${encodeURIComponent(token)}`, '_self')
-        this.exportFeedback = { type: 'success', text: 'Download is starting...' }
+        this.exportFeedback = { type: 'success', text: this.$t('settings.downloadStarting') }
       } catch {
-        this.exportFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.exportFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.exportBusy = false
       }
     },
 
     async deleteAccount() {
-      if (
-        !confirm(
-          'Are you sure? This action cannot be undone. Your site and all its data will be permanently deleted.',
-        )
-      )
-        return
+      if (!confirm(this.$t('settings.deleteConfirm'))) return
 
       this.deleteFeedback = null
       this.deleteBusy = true
@@ -154,7 +149,7 @@ export default defineComponent({
         await this.siteStore.removeSavedToken()
         this.$router.push({ name: 'home' })
       } catch {
-        this.deleteFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.deleteFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.deleteBusy = false
       }
@@ -169,32 +164,35 @@ export default defineComponent({
     <section
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
-      <h2 class="mb-4">Change Password</h2>
+      <h2 class="mb-4">{{ $t('settings.changePassword') }}</h2>
       <form @submit.prevent="changePassword($event.target as HTMLFormElement)">
         <FormFieldComponent
+          name="current password"
           type="password"
-          title="Current Password"
-          placeholder="Your current password"
+          :title="$t('settings.currentPassword')"
+          :placeholder="$t('settings.currentPasswordPlaceholder')"
           autocomplete="current-password"
           required
         />
         <FormFieldComponent
+          name="new password"
           type="password"
-          title="New Password"
-          placeholder="Choose a new password"
+          :title="$t('settings.newPassword')"
+          :placeholder="$t('settings.newPasswordPlaceholder')"
           autocomplete="new-password"
           required
         />
         <FormFieldComponent
+          name="confirm password"
           type="password"
-          title="Confirm Password"
-          placeholder="Confirm new password"
+          :title="$t('settings.confirmPassword')"
+          :placeholder="$t('settings.confirmPasswordPlaceholder')"
           autocomplete="new-password"
           required
         />
-        <AsyncButton type="submit" class="button mt-4" :busy="passwordBusy"
-          >Change Password</AsyncButton
-        >
+        <AsyncButton type="submit" class="button mt-4" :busy="passwordBusy">{{
+          $t('settings.changePassword')
+        }}</AsyncButton>
         <p
           v-if="passwordFeedback"
           class="pl-3 mt-4 text-sm text-left border-l-2"
@@ -213,25 +211,29 @@ export default defineComponent({
     <section
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
-      <h2 class="mb-2">Change E-mail</h2>
+      <h2 class="mb-2">{{ $t('settings.changeEmail') }}</h2>
       <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-        A confirmation link will be sent to the new address.
+        {{ $t('settings.changeEmailDescription') }}
       </p>
       <form @submit.prevent="changeEmail($event.target as HTMLFormElement)">
         <FormFieldComponent
+          name="new e-mail"
           type="email"
-          title="New E-mail"
-          placeholder="new@example.com"
+          :title="$t('settings.newEmail')"
+          :placeholder="$t('settings.newEmailPlaceholder')"
           required
         />
         <FormFieldComponent
+          name="password"
           type="password"
-          title="Password"
-          placeholder="Current password"
+          :title="$t('login.password')"
+          :placeholder="$t('settings.currentPasswordPlaceholder')"
           autocomplete="current-password"
           required
         />
-        <AsyncButton type="submit" class="button mt-4" :busy="emailBusy">Change E-mail</AsyncButton>
+        <AsyncButton type="submit" class="button mt-4" :busy="emailBusy">{{
+          $t('settings.changeEmail')
+        }}</AsyncButton>
         <p
           v-if="emailFeedback"
           class="pl-3 mt-4 text-sm text-left border-l-2"
@@ -250,13 +252,13 @@ export default defineComponent({
     <section
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
-      <h2 class="mb-2">Export Data</h2>
+      <h2 class="mb-2">{{ $t('settings.exportData') }}</h2>
       <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-        Download your site data as a .tar.gz archive.
+        {{ $t('settings.exportDescription') }}
       </p>
-      <AsyncButton class="button" :busy="exportBusy" @click="exportData()"
-        >Download Export</AsyncButton
-      >
+      <AsyncButton class="button" :busy="exportBusy" @click="exportData()">{{
+        $t('settings.downloadExport')
+      }}</AsyncButton>
       <p
         v-if="exportFeedback"
         class="pl-3 mt-4 text-sm text-left border-l-2"
@@ -272,16 +274,16 @@ export default defineComponent({
 
     <!-- delete account -->
     <section class="p-6 rounded-2xl border border-red-500/30 bg-white dark:bg-gray-900">
-      <h2 class="mb-2 text-red-400">Delete Account</h2>
+      <h2 class="mb-2 text-red-400">{{ $t('settings.deleteAccount') }}</h2>
       <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-        Permanently delete your site and all associated data. This cannot be undone.
+        {{ $t('settings.deleteDescription') }}
       </p>
       <AsyncButton
         class="inline-block py-2.5 px-5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-semibold transition-all cursor-pointer border-none"
         :busy="deleteBusy"
         @click="deleteAccount()"
       >
-        Delete My Site
+        {{ $t('settings.deleteButton') }}
       </AsyncButton>
       <p
         v-if="deleteFeedback"

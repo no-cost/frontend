@@ -10,37 +10,53 @@ export default defineComponent({
     FontAwesomeIcon,
     HeadingSectionComponent,
   },
-  data() {
-    return {
-      apps: [
+  computed: {
+    apps(): {
+      name: string
+      icon: string[]
+      descriptionKey: string
+      featuresKeys: string[]
+      url: string
+    }[] {
+      return [
         {
           name: 'Flarum',
           icon: ['fas', 'comments'],
-          description: 'A modern, fast forum platform. Perfect for building online communities.',
-          features: [
-            'Vast extension ecosystem',
-            'Mobile-friendly',
-            'SEO optimized',
-            'Permissions & groups system',
+          descriptionKey: 'featuresPage.apps.flarum.description',
+          featuresKeys: [
+            'featuresPage.apps.flarum.features.extensions',
+            'featuresPage.apps.flarum.features.mobile',
+            'featuresPage.apps.flarum.features.seo',
+            'featuresPage.apps.flarum.features.permissions',
           ],
           url: 'https://flarum.org',
         },
         {
           name: 'MediaWiki',
           icon: ['fas', 'book'],
-          description: 'The wiki software that powers Wikipedia. Ideal for knowledge bases.',
-          features: ['Rich text editing', 'Version history', 'Templates', 'Multi-language support'],
+          descriptionKey: 'featuresPage.apps.mediawiki.description',
+          featuresKeys: [
+            'featuresPage.apps.mediawiki.features.richText',
+            'featuresPage.apps.mediawiki.features.versionHistory',
+            'featuresPage.apps.mediawiki.features.templates',
+            'featuresPage.apps.mediawiki.features.multiLanguage',
+          ],
           url: 'https://www.mediawiki.org',
         },
         {
           name: 'WordPress',
           icon: ['fab', 'wordpress'],
-          description: "The world's most popular CMS. Great for blogs and websites.",
-          features: ['Themes and plugins', 'Block editor', 'Media management', 'User roles'],
+          descriptionKey: 'featuresPage.apps.wordpress.description',
+          featuresKeys: [
+            'featuresPage.apps.wordpress.features.themes',
+            'featuresPage.apps.wordpress.features.blockEditor',
+            'featuresPage.apps.wordpress.features.media',
+            'featuresPage.apps.wordpress.features.userRoles',
+          ],
           url: 'https://wordpress.org',
         },
-      ],
-    }
+      ]
+    },
   },
 })
 </script>
@@ -48,8 +64,8 @@ export default defineComponent({
 <template>
   <div class="max-w-3xl mx-auto px-6">
     <HeadingSectionComponent
-      heading="Features"
-      description="Choose the right application for your project."
+      :heading="$t('featuresPage.heading')"
+      :description="$t('featuresPage.description')"
     />
 
     <div class="flex flex-col gap-6 mt-12">
@@ -67,16 +83,18 @@ export default defineComponent({
         </div>
         <div>
           <h2 class="font-semibold">{{ app.name }}</h2>
-          <p class="mt-1 text-gray-500 dark:text-gray-400">{{ app.description }}</p>
+          <p class="mt-1 text-gray-500 dark:text-gray-400">{{ $t(app.descriptionKey) }}</p>
 
-          <h6 class="mt-3 font-semibold text-gray-700 dark:text-gray-300">Features:</h6>
+          <h6 class="mt-3 font-semibold text-gray-700 dark:text-gray-300">
+            {{ $t('featuresPage.featuresLabel') }}
+          </h6>
           <ul class="mt-3 text-gray-500 dark:text-gray-400">
             <li
-              v-for="feature in app.features"
-              :key="feature"
+              v-for="featureKey in app.featuresKeys"
+              :key="featureKey"
               class="text-sm px-2.5 py-1 list-disc list-inside"
             >
-              {{ feature }}
+              {{ $t(featureKey) }}
             </li>
           </ul>
         </div>

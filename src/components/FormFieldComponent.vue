@@ -4,6 +4,10 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'FormFieldComponent',
   props: {
+    name: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -50,8 +54,7 @@ export default defineComponent({
     </label>
     <input
       class="form-field"
-      :id="$props.title.toLowerCase()"
-      :name="$props.title.toLowerCase()"
+      :name="$props.name"
       :value
       :placeholder
       :type

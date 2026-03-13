@@ -45,7 +45,7 @@ export default defineComponent({
       if (!form.reportValidity()) return
 
       if (!this.turnstileToken) {
-        this.info = 'Please complete the verification.'
+        this.info = this.$t('common.completeVerification')
         return
       }
 
@@ -72,8 +72,7 @@ export default defineComponent({
         this.success = true
         this.info = null
       } catch {
-        this.info =
-          'Network error. Please, try again later. If the problem persists, contact support.'
+        this.info = this.$t('common.networkErrorLong')
         this.resetTurnstile()
       }
     },
@@ -87,40 +86,47 @@ export default defineComponent({
       class="p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
       <h1 class="text-center font-bold mb-6">
-        {{ success ? 'Creating your site...' : 'Create site' }}
+        {{ success ? $t('signup.creatingTitle') : $t('signup.createTitle') }}
       </h1>
 
       <template v-if="success">
         <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
-          Your site is being installed. Check your email to set your password and get started.
+          {{ $t('signup.successMessage') }}
         </p>
       </template>
 
       <form v-else method="POST" @submit.prevent="createSite($event.target as HTMLFormElement)">
         <FormFieldComponent
-          title="Tag"
-          placeholder="Your site name"
+          name="tag"
+          :title="$t('signup.tag')"
+          :placeholder="$t('signup.tagPlaceholder')"
           pattern="[a-zA-Z0-9_]{3,32}"
-          title_attr="Only letters, digits, and/or underscores, between 3 and 32 characters"
+          :title_attr="$t('signup.tagPattern')"
           required
         />
-        <FormFieldComponent type="email" title="Email" placeholder="Your admin email" required />
+        <FormFieldComponent
+          name="email"
+          type="email"
+          :title="$t('signup.email')"
+          :placeholder="$t('signup.emailPlaceholder')"
+          required
+        />
 
         <div class="mt-4 space-y-2">
-          <span class="text-sm font-medium">Application</span>
+          <span class="text-sm font-medium">{{ $t('signup.application') }}</span>
           <select
             name="site_type"
             class="w-full p-3 my-2 rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 border border-gray-200 dark:border-gray-700"
             required
           >
-            <option value="flarum">Flarum (Forum)</option>
-            <option value="mediawiki">MediaWiki (Wiki)</option>
-            <option value="wordpress">WordPress (Blog/CMS)</option>
+            <option value="flarum">{{ $t('signup.flarum') }}</option>
+            <option value="mediawiki">{{ $t('signup.mediawiki') }}</option>
+            <option value="wordpress">{{ $t('signup.wordpress') }}</option>
           </select>
         </div>
 
         <div v-if="allowedDomains.length > 1" class="mt-4 space-y-2">
-          <span class="text-sm font-medium">Domain</span>
+          <span class="text-sm font-medium">{{ $t('signup.domain') }}</span>
           <select
             name="parent_domain"
             class="w-full p-3 my-2 rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 border border-gray-200 dark:border-gray-700"
@@ -143,7 +149,9 @@ export default defineComponent({
         </p>
 
         <div class="mt-8">
-          <button type="submit" class="button w-full text-center">Create site</button>
+          <button type="submit" class="button w-full text-center">
+            {{ $t('signup.createButton') }}
+          </button>
         </div>
       </form>
     </div>

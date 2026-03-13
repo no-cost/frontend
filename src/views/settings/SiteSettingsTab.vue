@@ -80,7 +80,6 @@ export default defineComponent({
         this.allowedDomains = await response.json()
         if (this.allowedDomains.length > 0) {
           this.unlinkParentDomain = this.allowedDomains[0]!
-          // pre-select the current parent domain
           const currentParent = this.allowedDomains.find(
             (d) => this.siteStore.hostname === `${this.siteStore.tag}.${d}`,
           )
@@ -111,7 +110,7 @@ export default defineComponent({
         this.customDomain = ''
         await this.siteStore.getSiteData()
       } catch {
-        this.domainFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.domainFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.domainBusy = false
       }
@@ -137,7 +136,7 @@ export default defineComponent({
         this.domainFeedback = { type: 'success', text: data.message }
         await this.siteStore.getSiteData()
       } catch {
-        this.domainFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.domainFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.domainBusy = false
       }
@@ -163,7 +162,7 @@ export default defineComponent({
         this.parentDomainFeedback = { type: 'success', text: data.message }
         await this.siteStore.getSiteData()
       } catch {
-        this.parentDomainFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.parentDomainFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.parentDomainBusy = false
       }
@@ -219,10 +218,10 @@ export default defineComponent({
         const data = await response.json()
         this.skinFeedback = {
           type: 'success',
-          text: `Default skin set to "${data.skin}". If you don't see the change, clear your browser cache.`,
+          text: this.$t('settings.skinUpdated', { skin: data.skin }),
         }
       } catch {
-        this.skinFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.skinFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.skinBusy = false
       }
@@ -247,10 +246,10 @@ export default defineComponent({
         const data = await response.json()
         this.languageFeedback = {
           type: 'success',
-          text: `Default language set to "${data.language}".`,
+          text: this.$t('settings.languageUpdated', { language: data.language }),
         }
       } catch {
-        this.languageFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.languageFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.languageBusy = false
       }
@@ -275,11 +274,11 @@ export default defineComponent({
         this.poweredByFeedback = {
           type: 'success',
           text: this.hidePoweredByMw
-            ? '"Powered by MediaWiki" footer hidden.'
-            : '"Powered by MediaWiki" footer restored.',
+            ? this.$t('settings.poweredByHidden')
+            : this.$t('settings.poweredByRestored'),
         }
       } catch {
-        this.poweredByFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.poweredByFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.poweredByBusy = false
       }
@@ -313,10 +312,12 @@ export default defineComponent({
         else this.currentFavicon = data.favicon
         this.brandingFeedback = {
           type: 'success',
-          text: `${type.charAt(0).toUpperCase() + type.slice(1)} updated.`,
+          text: this.$t('settings.brandingUpdated', {
+            type: type.charAt(0).toUpperCase() + type.slice(1),
+          }),
         }
       } catch {
-        this.brandingFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.brandingFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.uploading = null
         input.value = ''
@@ -341,7 +342,7 @@ export default defineComponent({
         const data = await response.json()
         this.fixupFeedback = { type: 'success', text: data.message }
       } catch {
-        this.fixupFeedback = { type: 'error', text: 'Network error. Please try again.' }
+        this.fixupFeedback = { type: 'error', text: this.$t('common.networkError') }
       } finally {
         this.fixupBusy = false
       }
@@ -361,9 +362,9 @@ export default defineComponent({
       v-if="allowedDomains.length > 1 && !isCustomDomainLinked"
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
-      <h2 class="mb-4">Parent Domain</h2>
+      <h2 class="mb-4">{{ $t('settings.parentDomain') }}</h2>
       <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-        Change which domain your site is hosted on.
+        {{ $t('settings.parentDomainDescription') }}
       </p>
 
       <div class="flex gap-3">
@@ -381,7 +382,7 @@ export default defineComponent({
           :disabled="!isParentDomainChanged"
           @click="changeParentDomain()"
         >
-          Save
+          {{ $t('common.save') }}
         </AsyncButton>
       </div>
 
@@ -402,20 +403,22 @@ export default defineComponent({
     <section
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
-      <h2 class="mb-4">Custom Domain</h2>
+      <h2 class="mb-4">{{ $t('settings.customDomain') }}</h2>
 
       <template v-if="siteStore.isDonor">
         <template v-if="isCustomDomainLinked">
           <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-            Your site is currently using the custom domain
-            <strong class="text-gray-800 dark:text-gray-200">{{ siteStore.hostname }}</strong
-            >.
+            <i18n-t keypath="settings.customDomainLinked" tag="span">
+              <template #domain>
+                <strong class="text-gray-800 dark:text-gray-200">{{ siteStore.hostname }}</strong>
+              </template>
+            </i18n-t>
           </p>
 
           <div v-if="allowedDomains.length > 1" class="mb-4">
-            <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5"
-              >Revert to parent domain</label
-            >
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">{{
+              $t('settings.revertToParent')
+            }}</label>
             <select
               v-model="unlinkParentDomain"
               class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 border border-gray-200 dark:border-gray-700"
@@ -427,24 +430,27 @@ export default defineComponent({
           </div>
 
           <AsyncButton class="button" :busy="domainBusy" @click="unlinkDomain()">
-            Unlink Custom Domain
+            {{ $t('settings.unlinkCustomDomain') }}
           </AsyncButton>
         </template>
 
         <template v-else>
           <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-            Point a CNAME record for your domain to
-            <code class="text-cyan-400">cname.no-cost.site</code> before linking.
+            <i18n-t keypath="settings.cnameDescription" tag="span">
+              <template #cname>
+                <code class="text-cyan-400">cname.no-cost.site</code>
+              </template>
+            </i18n-t>
           </p>
 
           <div class="mb-4">
-            <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5"
-              >Domain</label
-            >
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">{{
+              $t('settings.domainLabel')
+            }}</label>
             <input
               v-model="customDomain"
               type="text"
-              placeholder="wiki.example.com"
+              :placeholder="$t('settings.domainPlaceholder')"
               class="w-full p-3 rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 border border-gray-200 dark:border-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-500"
             />
           </div>
@@ -455,14 +461,19 @@ export default defineComponent({
             :disabled="!customDomain.trim()"
             @click="linkDomain()"
           >
-            Link Domain
+            {{ $t('settings.linkDomain') }}
           </AsyncButton>
         </template>
       </template>
 
       <p v-else class="text-sm text-gray-500 dark:text-gray-400">
-        Custom domains are available to
-        <RouterLink :to="{ name: 'donate' }">donors</RouterLink> (7 &euro; or more).
+        <i18n-t keypath="settings.customDomainDonorsOnly" tag="span">
+          <template #link>
+            <RouterLink :to="{ name: 'donate' }">{{
+              $t('settings.customDomainDonorsLink')
+            }}</RouterLink>
+          </template>
+        </i18n-t>
       </p>
 
       <p
@@ -483,13 +494,13 @@ export default defineComponent({
       v-if="siteStore.siteType === 'mediawiki'"
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
-      <h2 class="mb-4">MediaWiki Settings</h2>
+      <h2 class="mb-4">{{ $t('settings.mediawikiSettings') }}</h2>
 
       <!-- default skin -->
       <div class="mb-6">
-        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5"
-          >Default Skin</label
-        >
+        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">{{
+          $t('settings.defaultSkin')
+        }}</label>
         <div class="flex gap-3">
           <select
             v-model="currentSkin"
@@ -498,7 +509,7 @@ export default defineComponent({
             <option v-for="skin in allowedSkins" :key="skin" :value="skin">{{ skin }}</option>
           </select>
           <AsyncButton class="button" :busy="skinBusy" :disabled="!currentSkin" @click="setSkin()">
-            Save
+            {{ $t('common.save') }}
           </AsyncButton>
         </div>
         <p
@@ -516,9 +527,9 @@ export default defineComponent({
 
       <!-- default language -->
       <div class="mb-6">
-        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5"
-          >Default Language</label
-        >
+        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">{{
+          $t('settings.defaultLanguage')
+        }}</label>
         <div class="flex gap-3">
           <select
             v-model="currentLanguage"
@@ -532,7 +543,7 @@ export default defineComponent({
             :disabled="!currentLanguage"
             @click="setLanguage()"
           >
-            Save
+            {{ $t('common.save') }}
           </AsyncButton>
         </div>
         <p
@@ -557,9 +568,9 @@ export default defineComponent({
             class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-cyan-500 focus:ring-cyan-500/50 focus:ring-2 cursor-pointer"
             @change="setHidePoweredByMw()"
           />
-          <span class="text-sm font-medium text-gray-700 dark:text-gray-300"
-            >Hide "Powered by MediaWiki" footer</span
-          >
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{{
+            $t('settings.hidePoweredBy')
+          }}</span>
         </label>
         <p
           v-if="poweredByFeedback"
@@ -576,18 +587,18 @@ export default defineComponent({
 
       <!-- logo -->
       <div class="mb-6">
-        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5"
-          >Logo</label
-        >
+        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">{{
+          $t('settings.logo')
+        }}</label>
         <div v-if="currentLogo" class="mb-2">
           <img
             :src="brandingUrl(currentLogo)"
-            alt="Current logo"
+            :alt="$t('settings.currentLogo')"
             class="h-16 rounded border border-gray-200 dark:border-gray-700"
           />
         </div>
         <p v-if="uploading === 'logo'" class="text-sm text-gray-500 dark:text-gray-400 mb-1">
-          Uploading...
+          {{ $t('settings.uploading') }}
         </p>
         <input
           v-else
@@ -600,18 +611,18 @@ export default defineComponent({
 
       <!-- favicon -->
       <div>
-        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5"
-          >Favicon</label
-        >
+        <label class="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-1.5">{{
+          $t('settings.favicon')
+        }}</label>
         <div v-if="currentFavicon" class="mb-2">
           <img
             :src="brandingUrl(currentFavicon)"
-            alt="Current favicon"
+            :alt="$t('settings.currentFavicon')"
             class="h-8 rounded border border-gray-200 dark:border-gray-700"
           />
         </div>
         <p v-if="uploading === 'favicon'" class="text-sm text-gray-500 dark:text-gray-400 mb-1">
-          Uploading...
+          {{ $t('settings.uploading') }}
         </p>
         <input
           v-else
@@ -639,11 +650,13 @@ export default defineComponent({
     <section
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
-      <h2 class="mb-2">Maintenance</h2>
+      <h2 class="mb-2">{{ $t('settings.maintenance') }}</h2>
       <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-        Run migrations and clear caches for your site.
+        {{ $t('settings.maintenanceDescription') }}
       </p>
-      <AsyncButton class="button" :busy="fixupBusy" @click="runFixup()">Run Fixup</AsyncButton>
+      <AsyncButton class="button" :busy="fixupBusy" @click="runFixup()">{{
+        $t('settings.runFixup')
+      }}</AsyncButton>
       <p
         v-if="fixupFeedback"
         class="pl-3 mt-4 text-sm text-left border-l-2"

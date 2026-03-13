@@ -35,7 +35,7 @@ export default defineComponent({
         })
 
         if (!response.ok) {
-          this.info = await extractError(response, 'Login failed')
+          this.info = await extractError(response, this.$t('login.loginFailed'))
           return
         }
 
@@ -44,7 +44,7 @@ export default defineComponent({
         await this.siteStore.getSiteData()
         this.$router.push({ name: 'settings' })
       } catch {
-        this.info = 'Network error. Please try again.'
+        this.info = this.$t('common.networkError')
       }
     },
   },
@@ -56,21 +56,23 @@ export default defineComponent({
     <div
       class="p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
-      <h1 class="mb-8 text-center font-bold text-3xl">Log in</h1>
+      <h1 class="mb-8 text-center font-bold text-3xl">{{ $t('login.title') }}</h1>
 
       <form method="POST" @submit.prevent="login($event.target as HTMLFormElement)">
         <div class="space-y-1">
           <FormFieldComponent
-            placeholder="Tag or hostname"
-            title="Username"
+            name="username"
+            :placeholder="$t('login.usernamePlaceholder')"
+            :title="$t('login.username')"
             autocomplete="username"
             required
           />
 
           <FormFieldComponent
-            placeholder="Your admin account password"
+            name="password"
+            :placeholder="$t('login.passwordPlaceholder')"
             type="password"
-            title="Password"
+            :title="$t('login.password')"
             autocomplete="current-password"
             required
           />
@@ -83,7 +85,7 @@ export default defineComponent({
             id="remember"
             class="mr-2 rounded border-gray-300 dark:border-gray-600"
           />
-          <label for="remember" class="text-sm text-gray-500">Remember Me</label>
+          <label for="remember" class="text-sm text-gray-500">{{ $t('login.rememberMe') }}</label>
         </div>
 
         <p v-if="info" class="pl-3 mt-4 text-sm text-left text-red-400 border-l-2 border-red-500">
@@ -91,11 +93,13 @@ export default defineComponent({
         </p>
 
         <div class="mt-8">
-          <button type="submit" class="button w-full text-center">Log in</button>
+          <button type="submit" class="button w-full text-center">
+            {{ $t('login.loginButton') }}
+          </button>
         </div>
 
         <p class="mt-4 text-sm text-center text-gray-500">
-          <RouterLink :to="{ name: 'reset-password' }">Forgot password?</RouterLink>
+          <RouterLink :to="{ name: 'reset-password' }">{{ $t('login.forgotPassword') }}</RouterLink>
         </p>
       </form>
     </div>

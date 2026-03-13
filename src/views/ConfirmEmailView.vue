@@ -22,7 +22,7 @@ export default defineComponent({
   },
   async mounted() {
     if (!this.token) {
-      this.info = 'Missing confirmation token.'
+      this.info = this.$t('confirmEmail.missingToken')
       this.loading = false
       return
     }
@@ -35,13 +35,13 @@ export default defineComponent({
       })
 
       if (!response.ok) {
-        this.info = await extractError(response, 'Confirmation failed')
+        this.info = await extractError(response, this.$t('confirmEmail.confirmFailed'))
         return
       }
 
       this.success = true
     } catch {
-      this.info = 'Network error. Please try again.'
+      this.info = this.$t('common.networkError')
     } finally {
       this.loading = false
     }
@@ -54,15 +54,15 @@ export default defineComponent({
     <div
       class="p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"
     >
-      <h1 class="mb-8 text-center font-bold text-3xl">Confirm E-mail</h1>
+      <h1 class="mb-8 text-center font-bold text-3xl">{{ $t('confirmEmail.title') }}</h1>
 
       <p v-if="loading" class="text-sm text-gray-500 dark:text-gray-400 text-center">
-        Confirming...
+        {{ $t('confirmEmail.confirming') }}
       </p>
 
       <p v-else-if="success" class="text-sm text-gray-500 dark:text-gray-400 text-center">
-        Your e-mail address has been updated.
-        <RouterLink :to="{ name: 'settings' }">Back to settings</RouterLink>
+        {{ $t('confirmEmail.success') }}
+        <RouterLink :to="{ name: 'settings' }">{{ $t('confirmEmail.backToSettings') }}</RouterLink>
       </p>
 
       <p v-else-if="info" class="pl-3 text-sm text-left text-red-400 border-l-2 border-red-500">

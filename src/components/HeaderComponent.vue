@@ -11,13 +11,26 @@ export default defineComponent({
   data() {
     return {
       mobileMenuOpen: false,
-      links: {
-        Home: ['fas', 'home'],
-        Features: ['fas', 'star'],
-        Contact: ['fas', 'envelope'],
-        Settings: ['fas', 'user'],
-      },
     }
+  },
+  computed: {
+    links(): Record<string, string[]> {
+      return {
+        [this.$t('header.home')]: ['fas', 'home'],
+        [this.$t('header.features')]: ['fas', 'star'],
+        [this.$t('header.contact')]: ['fas', 'envelope'],
+        [this.$t('header.settings')]: ['fas', 'user'],
+      }
+    },
+    // map translated labels back to route names
+    routeNames(): Record<string, string> {
+      return {
+        [this.$t('header.home')]: 'home',
+        [this.$t('header.features')]: 'features',
+        [this.$t('header.contact')]: 'contact',
+        [this.$t('header.settings')]: 'settings',
+      }
+    },
   },
 })
 </script>
@@ -34,7 +47,7 @@ export default defineComponent({
     <button
       @click="mobileMenuOpen = !mobileMenuOpen"
       class="self-center inline-block w-8 h-8 p-1 text-gray-600 bg-gray-200 rounded focus:outline-none md:hidden dark:bg-gray-800 dark:text-gray-400 hover:text-gray-500"
-      aria-label="Open Mobile Menu"
+      :aria-label="$t('header.openMobileMenu')"
     >
       <svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -52,7 +65,7 @@ export default defineComponent({
       <RouterLink
         v-for="(icon, title) in links"
         :key="title"
-        :to="{ name: title.toLowerCase() }"
+        :to="{ name: routeNames[title] }"
         @click="mobileMenuOpen = false"
       >
         <a class="flex items-center space-x-2 py-2 md:py-0">

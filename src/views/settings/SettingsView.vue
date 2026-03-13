@@ -20,9 +20,9 @@ export default defineComponent({
     ...mapStores(useSiteStore),
     tabs(): { key: string; label: string }[] {
       return [
-        { key: 'overview', label: 'Overview' },
-        { key: 'site', label: 'Site Settings' },
-        { key: 'account', label: 'Account' },
+        { key: 'overview', label: this.$t('settings.overview') },
+        { key: 'site', label: this.$t('settings.siteSettings') },
+        { key: 'account', label: this.$t('settings.account') },
       ]
     },
   },
@@ -38,8 +38,8 @@ export default defineComponent({
 <template>
   <div class="max-w-2xl mx-auto px-6">
     <div class="mb-10 text-center">
-      <h1 class="big text-3xl">Settings</h1>
-      <p class="text-gray-500 dark:text-gray-400">Manage your site and account.</p>
+      <h1 class="big text-3xl">{{ $t('settings.title') }}</h1>
+      <p class="text-gray-500 dark:text-gray-400">{{ $t('settings.subtitle') }}</p>
     </div>
 
     <div class="flex items-center border-b border-gray-200 dark:border-gray-800 mb-8">
@@ -61,11 +61,11 @@ export default defineComponent({
 
       <button
         class="px-3 py-1.5 text-sm rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium transition-colors flex items-center gap-1.5"
-        title="Logout"
+        :title="$t('settings.logout')"
         @click="logout()"
       >
         <FontAwesomeIcon icon="right-from-bracket" />
-        <span class="hidden sm:inline">Logout</span>
+        <span class="hidden sm:inline">{{ $t('settings.logout') }}</span>
       </button>
     </div>
 

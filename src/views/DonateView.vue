@@ -16,9 +16,9 @@ export default defineComponent({
   <div>
     <!-- header -->
     <div class="mb-16 text-center">
-      <h1 class="big">Support no-cost.site</h1>
+      <h1 class="big">{{ $t('donatePage.title') }}</h1>
       <p class="text-lg text-gray-500 dark:text-gray-400">
-        Help us keep free hosting alive. Every donation matters.
+        {{ $t('donatePage.subtitle') }}
       </p>
     </div>
 
@@ -31,25 +31,25 @@ export default defineComponent({
           <span
             class="text-4xl font-bold text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-blue-400"
           >
-            7 €
+            {{ $t('donatePage.amount') }}
           </span>
           <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-            One-time donation, and you get:
+            {{ $t('donatePage.oneTimeDonation') }}
           </p>
         </div>
 
         <ul class="space-y-3 text-left text-sm">
           <li class="flex gap-3 items-start">
             <span class="text-cyan-400 mt-0.5">&#10003;</span>
-            <span>The "Powered by no-cost.site" footer at your site will be removed</span>
+            <span>{{ $t('donatePage.perkFooter') }}</span>
           </li>
           <li class="flex gap-3 items-start">
             <span class="text-cyan-400 mt-0.5">&#10003;</span>
-            <span>Your site will not be automatically archived due to inactivity</span>
+            <span>{{ $t('donatePage.perkArchive') }}</span>
           </li>
           <li class="flex gap-3 items-start">
             <span class="text-cyan-400 mt-0.5">&#10003;</span>
-            <span>Ability to link your own domain to your site</span>
+            <span>{{ $t('donatePage.perkDomain') }}</span>
           </li>
         </ul>
       </div>
@@ -61,52 +61,61 @@ export default defineComponent({
     >
       <div class="max-w-5xl mx-auto">
         <div class="mb-10 text-center">
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Ready to donate?</h2>
-          <p class="mt-2 text-sm text-gray-500">All money goes towards supporting no-cost.site</p>
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            {{ $t('donatePage.readyTitle') }}
+          </h2>
+          <p class="mt-2 text-sm text-gray-500">{{ $t('donatePage.readySubtitle') }}</p>
         </div>
 
         <div class="grid items-start grid-cols-1 gap-8 lg:grid-cols-2">
           <div
             class="p-6 space-y-4 text-sm rounded-xl border border-cyan-500/30 bg-cyan-50 dark:bg-cyan-950/20"
           >
-            <p class="font-semibold text-cyan-400">Important</p>
+            <p class="font-semibold text-cyan-400">{{ $t('donatePage.importantTitle') }}</p>
             <p class="text-gray-600 dark:text-gray-300">
-              When donating, please input nothing else except your site tag in the donation message.
-              Our system will automatically mark you as donor by scanning the donation message.
+              {{ $t('donatePage.importantText') }}
             </p>
 
             <div
               class="p-4 rounded-lg bg-gray-100 dark:bg-gray-800/50"
               v-if="siteStore.isAuthenticated"
             >
-              <p class="text-gray-500 dark:text-gray-400">Your site tag is:</p>
+              <p class="text-gray-500 dark:text-gray-400">{{ $t('donatePage.yourTagIs') }}</p>
               <pre class="mt-1 text-cyan-400 font-mono">{{ siteStore.tag }}</pre>
               <p class="mt-2 text-xs text-gray-500">
-                Include that and nothing else in the donation message.
+                {{ $t('donatePage.includeTag') }}
               </p>
             </div>
             <p v-else class="text-gray-500 dark:text-gray-400">
-              <RouterLink :to="{ name: 'login' }">Log in to your settings</RouterLink>
-              and your site tag will appear here.
+              <RouterLink :to="{ name: 'login' }">{{ $t('donatePage.loginPrompt') }}</RouterLink>
+              {{ $t('donatePage.loginPromptSuffix') }}
             </p>
 
             <ul class="space-y-1 text-gray-500 dark:text-gray-400">
               <li>
-                <b class="text-gray-700 dark:text-gray-300">Nickname</b> can be anything that you
-                want.
+                <i18n-t keypath="donatePage.nicknameNote" tag="span">
+                  <template #bold>
+                    <b class="text-gray-700 dark:text-gray-300">{{
+                      $t('donatePage.nicknameBold')
+                    }}</b>
+                  </template>
+                </i18n-t>
               </li>
               <li>
-                You can check <b class="text-gray-700 dark:text-gray-300">Private message</b> so
-                only we can see your donation message.
+                <i18n-t keypath="donatePage.privateMessageNote" tag="span">
+                  <template #bold>
+                    <b class="text-gray-700 dark:text-gray-300">{{
+                      $t('donatePage.privateMessageBold')
+                    }}</b>
+                  </template>
+                </i18n-t>
               </li>
             </ul>
 
             <p class="text-gray-500 dark:text-gray-400">
-              If we can't find your site tag in the donation message, your site will not be
-              automatically marked as donor. If you have donated and haven't received a thank-you
-              E-mail within a day, please
-              <RouterLink :to="{ name: 'contact' }">contact us</RouterLink>
-              so that we can sort it out.
+              {{ $t('donatePage.notFoundNote') }}
+              <RouterLink :to="{ name: 'contact' }">{{ $t('donatePage.contactUs') }}</RouterLink>
+              {{ $t('donatePage.notFoundSuffix') }}
             </p>
           </div>
 

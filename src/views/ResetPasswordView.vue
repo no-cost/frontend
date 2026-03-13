@@ -40,7 +40,7 @@ export default defineComponent({
       if (!form.reportValidity()) return
 
       if (!this.turnstileToken) {
-        this.info = 'Please complete the verification.'
+        this.info = this.$t('common.completeVerification')
         return
       }
 
@@ -65,11 +65,9 @@ export default defineComponent({
         }
 
         this.success = true
-        this.info =
-          "If an account with that info exists, a reset link has been sent to that account's admin e-mail."
+        this.info = this.$t('resetPassword.resetSuccess')
       } catch {
-        this.info =
-          'Network error. Please, try again later. If the problem persists, contact support.'
+        this.info = this.$t('common.networkErrorLong')
         this.resetTurnstile()
       }
     },
@@ -81,7 +79,7 @@ export default defineComponent({
       const confirm = formData.get('confirm') as string
 
       if (password !== confirm) {
-        this.info = 'Passwords do not match.'
+        this.info = this.$t('common.passwordsNoMatch')
         return
       }
 
@@ -93,14 +91,14 @@ export default defineComponent({
         })
 
         if (!response.ok) {
-          this.info = await extractError(response, 'Failed to set password.')
+          this.info = await extractError(response, this.$t('resetPassword.setFailed'))
           return
         }
 
         this.success = true
         this.info = null
       } catch {
-        this.info = 'Network error. Please try again.'
+        this.info = this.$t('common.networkError')
       }
     },
   },
@@ -114,28 +112,32 @@ export default defineComponent({
     >
       <!-- set password (token present) -->
       <template v-if="token">
-        <h1 class="mb-8 text-center font-bold text-3xl">Set your password</h1>
+        <h1 class="mb-8 text-center font-bold text-3xl">{{ $t('resetPassword.setTitle') }}</h1>
 
         <template v-if="success">
           <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
-            Your password has been set.
-            <RouterLink :to="{ name: 'login' }" class="text-cyan-400">Log in</RouterLink>
+            {{ $t('resetPassword.passwordSet') }}
+            <RouterLink :to="{ name: 'login' }" class="text-cyan-400">{{
+              $t('resetPassword.loginLink')
+            }}</RouterLink>
           </p>
         </template>
 
         <form v-else method="POST" @submit.prevent="setPassword($event.target as HTMLFormElement)">
           <div class="space-y-1">
             <FormFieldComponent
+              name="password"
               type="password"
-              title="Password"
-              placeholder="Choose a password"
+              :title="$t('resetPassword.passwordLabel')"
+              :placeholder="$t('resetPassword.passwordPlaceholder')"
               autocomplete="new-password"
               required
             />
             <FormFieldComponent
+              name="confirm"
               type="password"
-              title="Confirm"
-              placeholder="Confirm your password"
+              :title="$t('resetPassword.confirmLabel')"
+              :placeholder="$t('resetPassword.confirmPlaceholder')"
               autocomplete="new-password"
               required
             />
@@ -146,20 +148,25 @@ export default defineComponent({
           </p>
 
           <div class="mt-8">
-            <button type="submit" class="button w-full text-center">Set password</button>
+            <button type="submit" class="button w-full text-center">
+              {{ $t('resetPassword.setButton') }}
+            </button>
           </div>
         </form>
       </template>
 
       <!-- request reset (no token) -->
       <template v-else>
-        <h1 class="mb-4 text-center font-bold text-3xl">Reset password</h1>
+        <h1 class="mb-4 text-center font-bold text-3xl">{{ $t('resetPassword.resetTitle') }}</h1>
 
         <p class="mb-8 text-sm text-center text-gray-500 dark:text-gray-400">
-          This resets your
-          <strong class="text-gray-700 dark:text-gray-300">settings panel</strong> password. To
-          reset your instance's admin password, use the app's built-in password reset (at your site
-          URL).
+          <i18n-t keypath="resetPassword.resetDescription" tag="span">
+            <template #bold>
+              <strong class="text-gray-700 dark:text-gray-300">{{
+                $t('resetPassword.resetDescriptionBold')
+              }}</strong>
+            </template>
+          </i18n-t>
         </p>
 
         <template v-if="success">
@@ -168,9 +175,10 @@ export default defineComponent({
 
         <form v-else method="POST" @submit.prevent="requestReset($event.target as HTMLFormElement)">
           <FormFieldComponent
+            name="site"
             type="text"
-            title="Site"
-            placeholder="Tag or hostname"
+            :title="$t('resetPassword.site')"
+            :placeholder="$t('resetPassword.sitePlaceholder')"
             autocomplete="username"
             required
           />
@@ -188,7 +196,9 @@ export default defineComponent({
           </p>
 
           <div class="mt-8">
-            <button type="submit" class="button w-full text-center">Send reset link</button>
+            <button type="submit" class="button w-full text-center">
+              {{ $t('resetPassword.sendResetLink') }}
+            </button>
           </div>
         </form>
       </template>
