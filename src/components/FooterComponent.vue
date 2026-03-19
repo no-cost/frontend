@@ -80,9 +80,7 @@ export default defineComponent({
       </div>
     </div>
 
-    <div
-      class="max-w-7xl mx-auto px-8 mt-12 pt-8 border-t border-gray-100 dark:border-gray-800"
-    >
+    <div class="max-w-7xl mx-auto px-8 mt-12 pt-8 border-t border-gray-100 dark:border-gray-800">
       <div class="text-sm text-center text-gray-500 dark:text-gray-400">
         <p>{{ $t('footer.copyright', { year: currentYear }) }}</p>
         <p class="mt-1 italic">{{ $t('footer.disclaimer') }}</p>

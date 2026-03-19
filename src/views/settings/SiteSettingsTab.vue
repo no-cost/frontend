@@ -348,6 +348,13 @@ export default defineComponent({
       }
     },
 
+    formatSkinName(skinId: string): string {
+      return skinId
+        .split('-')
+        .map((part) => (part[0] ? part[0].toUpperCase() + part.slice(1) : part))
+        .join(' ')
+    },
+
     brandingUrl(path: string): string {
       return `https://${this.siteStore.hostname}${path}`
     },
@@ -506,7 +513,9 @@ export default defineComponent({
             v-model="currentSkin"
             class="flex-1 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 border border-gray-200 dark:border-gray-700"
           >
-            <option v-for="skin in allowedSkins" :key="skin" :value="skin">{{ skin }}</option>
+            <option v-for="skin in allowedSkins" :key="skin" :value="skin">
+              {{ formatSkinName(skin) }}
+            </option>
           </select>
           <AsyncButton class="button" :busy="skinBusy" :disabled="!currentSkin" @click="setSkin()">
             {{ $t('common.save') }}
