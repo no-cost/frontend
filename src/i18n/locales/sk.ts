@@ -123,7 +123,7 @@ export default {
   contactPage: {
     heading: 'Podpora',
     description: 'Máte problémy? Kontaktujte nás cez jeden z kanálov nižšie.',
-    note: '{bold} no-cost.site je nezávislá hostingová služba. Vieme pomôcť s problémami súvisiacimi s platformou, ale nedokážeme opraviť chyby v softvéri tretích strán. V takých prípadoch vám môžeme poskytnúť logy a stack trace, ktoré môžete zdieľať s vývojárom softvéru.',
+    note: '{bold} no-cost.site je nezávislá hostingová služba. Vieme pomôcť s problémami súvisiacimi s hostingovou platformou, ale nedokážeme opraviť chyby v softvéri tretích strán (v hostovanej aplikácií, jej rozšíreniach alebo témach). V takých prípadoch je nutné kontaktovať vyvojára konkrétneho softvéru.',
     noteBold: 'Poznámka:',
     githubTitle: 'GitHub',
     githubDescription: 'Nahlásiť problémy a prispieť',

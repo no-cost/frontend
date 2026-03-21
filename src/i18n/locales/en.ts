@@ -123,7 +123,7 @@ export default {
   contactPage: {
     heading: 'Support',
     description: 'Experiencing issues? Reach out through one of the channels below.',
-    note: "{bold} no-cost.site is an independent hosting service. We can help with platform-related issues, but we cannot fix bugs in third-party software. In such cases, we can provide logs and stack traces for you to share with the software's maintainer.",
+    note: "{bold} no-cost.site is an independent hosting service. We can help with hosting-related issues, but we cannot fix bugs in third-party software (in the hosted application, its extensions or themes). In such cases, it is necessary to contact the maintainer of the specific software.",
     noteBold: 'Note:',
     githubTitle: 'GitHub',
     githubDescription: 'Report issues and contribute',
