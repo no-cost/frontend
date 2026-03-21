@@ -267,6 +267,6 @@ export default {
     brandingUpdated: '{type} aktualizované.',
     maintenance: 'Údržba',
     maintenanceDescription: 'Spustite migrácie a vymažte vyrovnávaciu pamäť Vašej stránky.',
-    runFixup: 'Spustiť opravu',
+    runFixup: 'Spustiť údržbu',
   },
 }
