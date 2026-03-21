@@ -159,7 +159,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="space-y-6">
+  <div
+    class="space-y-6 min-[1980px]:grid min-[1980px]:grid-cols-2 min-[1980px]:gap-6 min-[1980px]:space-y-0"
+  >
     <!-- change password -->
     <section
       class="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900"

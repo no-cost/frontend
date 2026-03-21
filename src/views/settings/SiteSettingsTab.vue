@@ -363,7 +363,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="space-y-6">
+  <div
+    class="space-y-6 min-[1980px]:grid min-[1980px]:grid-cols-2 min-[1980px]:gap-6 min-[1980px]:space-y-0"
+  >
     <!-- parent domain -->
     <section
       v-if="allowedDomains.length > 1 && !isCustomDomainLinked"

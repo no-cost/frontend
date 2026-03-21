@@ -62,13 +62,13 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="max-w-3xl mx-auto px-6">
+  <div class="max-w-3xl min-[1980px]:max-w-6xl mx-auto px-6">
     <HeadingSectionComponent
       :heading="$t('featuresPage.heading')"
       :description="$t('featuresPage.description')"
     />
 
-    <div class="flex flex-col gap-6 mt-12">
+    <div class="flex flex-col gap-6 mt-12 min-[1980px]:grid min-[1980px]:grid-cols-2">
       <a
         v-for="app in apps"
         :key="app.name"

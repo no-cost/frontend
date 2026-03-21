@@ -36,7 +36,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="max-w-2xl mx-auto px-6">
+  <div class="max-w-2xl min-[1980px]:max-w-6xl mx-auto px-6">
     <div class="mb-10 text-center">
       <h1 class="big text-3xl">{{ $t('settings.title') }}</h1>
       <p class="text-gray-500 dark:text-gray-400">{{ $t('settings.subtitle') }}</p>

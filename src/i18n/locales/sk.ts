@@ -51,16 +51,16 @@ export default {
         text: 'Spoľahlivé SSL zabezpečenie je štandardom každej stránky. Žiadne odpočúvanie a vyhľadávače vás za to ocenia.',
       },
       freeBeer: {
-        title: 'Zadarmo (ako pivo)',
+        title: 'Slobodné',
         text: 'Táto služba je financovaná z darov. Našou misiou je podporovať nové komunity.',
       },
       freeSpeech: {
-        title: 'Zadarmo (ako sloboda)',
-        text: 'Vaša komunita a dáta sú Vaše a vždy si ich môžete exportovať.',
+        title: 'Zdarma',
+        text: 'Vaša komunita a dáta sú Vaše a kedykoľvek ich môžete exportovať, prípadne odstrániť.',
       },
       safe: {
-        title: 'Bezpečné dáta',
-        text: 'Denné zálohy vás ochraňujú.',
+        title: 'Bezpečné',
+        text: 'Každodenné zálohy ochránia všetky dáta za Vás.',
       },
       simple: {
         title: 'Jednoduché',

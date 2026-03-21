@@ -73,7 +73,7 @@ export default {
     creatingTitle: 'Creating your site...',
     createTitle: 'Create site',
     successMessage:
-      'Your site is being installed. Check your email to set your password. If you don\'t receive it within 10 minutes, please contact us.',
+      "Your site is being installed. Check your email to set your password. If you don't receive it within 10 minutes, please contact us.",
     tag: 'Tag',
     tagPlaceholder: 'Your site name',
     tagPattern: 'Only letters, digits, and/or underscores, between 3 and 32 characters',
