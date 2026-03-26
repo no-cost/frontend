@@ -158,10 +158,6 @@ export default {
     includeTag: 'Include that and nothing else in the donation message.',
     loginPrompt: 'Log in to your settings',
     loginPromptSuffix: 'and your site tag will appear here.',
-    nicknameNote: '{bold} can be anything that you want.',
-    nicknameBold: 'Nickname',
-    privateMessageNote: 'You can check {bold} so only we can see your donation message.',
-    privateMessageBold: 'Private message',
     notFoundNote:
       "If we can't find your site tag in the donation message, your site will not be automatically marked as donor. If you have donated and haven't received a thank-you E-mail within a day, please",
     contactUs: 'contact us',

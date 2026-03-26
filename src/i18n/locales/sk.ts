@@ -158,10 +158,6 @@ export default {
     includeTag: 'V správe uveďte iba to a nič iné.',
     loginPrompt: 'Prihláste sa do nastavení',
     loginPromptSuffix: 'a Váš identifikátor sa zobrazí tu.',
-    nicknameNote: '{bold} môže byť čokoľvek chcete.',
-    nicknameBold: 'Prezývka',
-    privateMessageNote: 'Môžete zaškrtnúť {bold}, aby sme správu o príspevku videli iba my.',
-    privateMessageBold: 'Súkromná správa',
     notFoundNote:
       'Ak nenájdeme Váš identifikátor v správe, Vaša stránka nebude automaticky označená za prispievateľa. Ak ste prispeli a nedostali ste e-mail do jedého dňa, prosím',
     contactUs: 'kontaktujte nás',

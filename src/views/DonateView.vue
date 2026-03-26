@@ -91,27 +91,6 @@ export default defineComponent({
               {{ $t('donatePage.loginPromptSuffix') }}
             </p>
 
-            <ul class="space-y-1 text-gray-500 dark:text-gray-400">
-              <li>
-                <i18n-t keypath="donatePage.nicknameNote" tag="span">
-                  <template #bold>
-                    <b class="text-gray-700 dark:text-gray-300">{{
-                      $t('donatePage.nicknameBold')
-                    }}</b>
-                  </template>
-                </i18n-t>
-              </li>
-              <li>
-                <i18n-t keypath="donatePage.privateMessageNote" tag="span">
-                  <template #bold>
-                    <b class="text-gray-700 dark:text-gray-300">{{
-                      $t('donatePage.privateMessageBold')
-                    }}</b>
-                  </template>
-                </i18n-t>
-              </li>
-            </ul>
-
             <p class="text-gray-500 dark:text-gray-400">
               {{ $t('donatePage.notFoundNote') }}
               <RouterLink :to="{ name: 'contact' }">{{ $t('donatePage.contactUs') }}</RouterLink>
