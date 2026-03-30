@@ -42,8 +42,8 @@ export default defineComponent({
           [this.$t('header.features')]: '/features',
         },
         [this.$t('footer.legal')]: {
-          [this.$t('footer.privacyPolicy')]: '/privacy',
-          [this.$t('footer.termsOfService')]: '/terms',
+          [this.$t('footer.privacyPolicy')]: `/doc/privacy_${this.currentLocale}.pdf`,
+          [this.$t('footer.termsOfService')]: `/doc/terms_${this.currentLocale}.pdf`,
         },
       }
     },
